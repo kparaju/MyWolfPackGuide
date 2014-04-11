@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Event Details</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/offcanvas.css" rel="stylesheet">
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <script>
+    function initialize() {
+      var mapCanvas = document.getElementById('map_canvas');
+      var mapOptions = {
+        center: new google.maps.LatLng(35.778317,-78.675902),
+        zoom: 18,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+      var map = new google.maps.Map(mapCanvas, mapOptions);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+
+  <body>
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">MyWolfPackGuide</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
+
+    <div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-3 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+          <h3>Upcoming Events</h3>
+          <br />
+          <div class="list-group">
+            <a href="#" class="list-group-item active">Foobar</a>
+            <a href="#" class="list-group-item">Something Else</a>
+            <a href="#" class="list-group-item">Not At All</a>
+          </div>
+        </div><!--/span-->
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+
+          <div class="jumbotron name-and-background">
+            <h1>Bada Wings</h1>
+          </div>
+
+          <div id="map_canvas">
+          </div>
+
+          
+
+          <div class="row">
+            <div class="col-8 col-sm-8 col-lg-8" >
+              <h2>Description</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit interdum nulla, a rhoncus leo dignissim ut. Nunc porttitor porttitor turpis id ornare. Integer lacinia adipiscing ante, eu fringilla enim facilisis ac. Nam eget dui sed elit lacinia feugiat ut quis leo. Nam sed congue neque. Aliquam rutrum felis id nisl commodo, vel auctor augue cursus. Sed lacinia vel orci vel interdum. Maecenas metus nulla, mattis ut convallis quis, ullamcorper ac mauris. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec tempus, erat sit amet accumsan vehicula, turpis metus laoreet lorem, sed lacinia tortor turpis commodo justo. Cras sit amet porttitor lorem, rhoncus tempor lorem. Aenean elementum diam ut varius dictum. Suspendisse in ante pulvinar, luctus erat eu, faucibus erat.
+              </p>
+              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+            </div><!--/span-->
+
+            <div class="col-4 col-sm-4 col-lg-4">
+              <h2>Pricing &amp; Location</h2>
+              <p>
+                <b>Price: </b> $6.50 <br />
+                <b>Address: </b> 2161 Avent Ferry Rd, Raleigh, NC 27606 <br /> 
+                <b>Date/Time:</b> March 19, 1994 12:00 PM <br /> 
+              </p>
+              <p><a class="btn btn-primary" href="#" role="button">Purchase &raquo;</a>
+              <a class="btn btn-info" href="#" role="button">Website &raquo;</a></p>
+            </div><!--/span-->
+
+            <div class="col-12 col-sm-12 col-lg-12" >
+              <h2>Heading</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div><!--/span-->
+
+
+
+          </div><!--/row-->
+
+
+        </div><!--/span-->
+
+        
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2014</p>
+      </footer>
+
+    </div><!--/.container-->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="offcanvas.js"></script> -->
+  </body>
+</html>
+

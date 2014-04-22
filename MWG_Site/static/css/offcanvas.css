@@ -59,10 +59,8 @@ footer {
 
 }
 
-
-
   .name-and-background {
-    background: url('../bada.jpg');
+    /*background: url('../bada.jpg');*/
     background-size: cover;
   }
 

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Event Details{% endblock %}
+
+{% block head_js %}
+
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <script>
+
+    function initialize() {
+      var geocoder;
+      var address = "2161 Avent Ferry Rd, Raleigh, NC 27606";
+
+      geocoder = new google.maps.Geocoder();
+      geocoder.geocode({
+            'address': address
+        }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+              var mapCanvas = document.getElementById('map_canvas');
+              var mapOptions = {
+                center: results[0].geometry.location,
+                zoom: 18,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              }
+              var map = new google.maps.Map(mapCanvas, mapOptions);
+          }
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          {% load static %}
+          <div class="jumbotron name-and-background" style="background:url({% static 'img/bada.jpg' %})"> 
+            <h1>Bada Wings</h1>
+          </div>
+
+          <div id="map_canvas">
+          </div>
+
+          <div class="row">
+            <div class="col-8 col-sm-8 col-lg-8" >
+              <h2>Description</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit interdum nulla, a rhoncus leo dignissim ut. Nunc porttitor porttitor turpis id ornare. Integer lacinia adipiscing ante, eu fringilla enim facilisis ac. Nam eget dui sed elit lacinia feugiat ut quis leo. Nam sed congue neque. Aliquam rutrum felis id nisl commodo, vel auctor augue cursus. Sed lacinia vel orci vel interdum. Maecenas metus nulla, mattis ut convallis quis, ullamcorper ac mauris. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec tempus, erat sit amet accumsan vehicula, turpis metus laoreet lorem, sed lacinia tortor turpis commodo justo. Cras sit amet porttitor lorem, rhoncus tempor lorem. Aenean elementum diam ut varius dictum. Suspendisse in ante pulvinar, luctus erat eu, faucibus erat.
+              </p>
+              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+            </div><!--/span-->
+
+            <div class="col-4 col-sm-4 col-lg-4">
+              <h2>Pricing &amp; Location</h2>
+              <p>
+                <b>Price: </b> $6.50 <br />
+                <b>Address: </b> 2161 Avent Ferry Rd, Raleigh, NC 27606 <br /> 
+                <b>Date/Time:</b> March 19, 1994 12:00 PM <br /> 
+              </p>
+              <p><a class="btn btn-primary" href="#" role="button">Purchase &raquo;</a>
+              <a class="btn btn-info" href="#" role="button">Website &raquo;</a></p>
+            </div><!--/span-->
+
+            <div class="col-12 col-sm-12 col-lg-12" >
+              <h2>Heading</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div><!--/span-->
+          </div><!--/row-->
+
+{% endblock %}
+
+{% block body_js %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="offcanvas.js"></script> -->
+
+{% endblock %}
+

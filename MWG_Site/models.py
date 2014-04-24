@@ -3,13 +3,13 @@ from django.db import models
 from django.core.files.storage import FileSystemStorage
 from MyWolfpackGuide import settings
 from django.db.models.signals import post_save
-from social_auth.models import UserSocialAuth
+# from social_auth.models import UserSocialAuth
 
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
 class MWGUser(models.Model):
-    user = models.OneToOneField(User)
-    _picture    = models.ImageField((u'picture'), upload_to='users', db_column='picture', blank=True, null=True)
+    user       = models.OneToOneField(User)
+    _picture   = models.ImageField((u'picture'), upload_to='users', db_column='picture', blank=True, null=True)
 
     def get_picture(self):
         """
@@ -27,10 +27,15 @@ class MWGUser(models.Model):
 
     class Meta:
         verbose_name = 'MyWolfpackGuide User'
-        verbose_name_plural = 'MyWolfpackGuide User'
+        verbose_name_plural = 'MyWolfpackGuide Users'
 
     def __unicode__(self):
         return unicode(self.name)
+
+    @property
+    def name(self):
+        return "{} {}".format(self.user.first_name, self.user.last_name)
+
 
     @property
     def is_admin(self):
@@ -38,8 +43,7 @@ class MWGUser(models.Model):
 
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-           MWGUser.objects.create(user=instance)
-           # instance.picture = UserSocialAuth.extra_data.picture
+            MWGUser.objects.create(user=instance)
 
     post_save.connect(create_user_profile, sender=User)
 

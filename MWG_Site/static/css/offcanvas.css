@@ -68,13 +68,27 @@ footer {
     color: white;
   }
 
-
-
   #map_canvas {
     height: 250px;
   }
 
+  .google-button {
+    background:url('../img/google_base.png');
+    background-size:50 100;
+    background-repeat: no-repeat;
+  }
 
+  .google-button:hover {
+    background:url('../img/google_hover.png');
+    background-size:50 100;
+    background-repeat: no-repeat;
+  }
+
+  .google-button:active {
+    background:url('../img/google_press.png');
+    background-size:50 100;
+    background-repeat: no-repeat;
+  }
 
 
 

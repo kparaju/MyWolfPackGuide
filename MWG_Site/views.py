@@ -1,17 +1,25 @@
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
 
 
 def home(request):
     if request.user and request.user.is_authenticated():
         return redirect(reverse('dashboard'))
-    return render(request, 'login.html')
+    return render(request, 'landing.html')
 
 
 class Login(TemplateView):
-    template_name = "login.html"
+    template_name = "landing.html"
+
+@login_required
+def logout(request):
+    """Logs out user"""
+    auth_logout(request)
+    return HttpResponseRedirect('landing.html')
 
 
 class LoginError(TemplateView):

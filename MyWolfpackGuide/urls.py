@@ -9,6 +9,6 @@ urlpatterns = patterns('',
     # MWG_Site App URLs
     url(r'^', include('MWG_Site.urls')),
     # Google Auth Login/Logout
-    url(r'^', include('social_auth.urls')),
+    url(r'^auth/', include('social_auth.urls')),
 )
  

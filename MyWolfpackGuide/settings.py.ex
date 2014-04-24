@@ -89,6 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'MWG_Site.views.MWGSocialAuthExceptionMiddleware',
 )
 
 ROOT_URLCONF = 'MyWolfpackGuide.urls'

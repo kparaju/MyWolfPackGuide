@@ -1,12 +1,14 @@
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import lo:q!:q:qgin_required
 
 
 from django.shortcuts import redirect
 from social_auth.middleware import SocialAuthExceptionMiddleware
 from social_auth.exceptions import AuthFailed
+
+from MWG_Site import models
 
 def home(request):
     if request.user and request.user.is_authenticated():
@@ -21,12 +23,23 @@ class Login(TemplateView):
 class LoginError(TemplateView):
     template_name = "login_error.html"
 
+class Dashboard(TemplateView):
+    template_name = "dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(Dashboard, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        context['user'] = models.MWGUser.objects.get(user=user)
+
+        return context
+
 
 class CreateEvent(TemplateView):
 	template_name = "events/create.html"
 
 
-class BrowseEvents(TemplateView):
+class BrowseEvents(Dashboard, TemplateView):
 	template_name = "events/browse.html"
 
 class MyEvents(TemplateView):

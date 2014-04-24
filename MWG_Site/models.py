@@ -36,6 +36,10 @@ class MWGUser(models.Model):
     def name(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
+    @property
+    def email(self):
+        return self.user.email
+
 
     @property
     def is_admin(self):

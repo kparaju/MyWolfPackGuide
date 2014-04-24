@@ -26,21 +26,32 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-#Google Login 
-LOGIN_REDIRECT_URL = '/'
+# Social_Auth
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGIN_URL = '/login/'
-LOGOUT_URL = '/logout/'
+LOGOUT_URL = '/login/'
 LOGIN_ERROR_URL = '/login-error/'
 
-# Social_Auth
-SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
-SOCIAL_AUTH_ENABLED_BACKENDS = ('google')
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.associate.associate_by_email',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.user.update_user_details'
+)
 
-# OAuth Keys and Secrets
-GOOGLE_CONSUMER_KEY          = ''
-GOOGLE_CONSUMER_SECRET       = ''
+SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+
+# OAuth Key and Secret
 GOOGLE_OAUTH2_CLIENT_ID      = '735674581937-esocu94tj2vpi2i38gsgb22upglq2as5.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = '_blovGsNID0KLMs9JjTvi9jX'
+
+SOCIAL_AUTH_CREATE_USERS = True
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+SOCIAL_AUTH_ENABLED_BACKENDS = ('google')
+SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS = ['ncsu.edu']
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -52,6 +63,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
   'social_auth.context_processors.social_auth_by_type_backends',
 )
 
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 INSTALLED_APPS = (
     'django.contrib.admin',

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     if request.user and request.user.is_authenticated():
-        return redirect(reverse('dashboard'))
+        return redirect(reverse('browse-events'))
     return render(request, 'landing.html')
 
 
@@ -17,13 +17,17 @@ class LoginError(TemplateView):
     template_name = "login_error.html"
 
 
+class CreateEvent(TemplateView):
+	template_name = "events/create.html"
+
+
+class BrowseEvents(TemplateView):
+	template_name = "events/browse.html"
+
 
 class EventDetails(TemplateView):
-    template_name = "event.html"
+    template_name = "events/details.html"
 
-
-class Dashboard(TemplateView):
-    template_name = "dashboard.html"
 
 
 @login_required

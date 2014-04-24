@@ -1,0 +1,5 @@
+.env/
+*.pyc
+*.sqlite3
+MyWolfpackGuide/settings.py
+

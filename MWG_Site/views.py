@@ -29,6 +29,9 @@ class CreateEvent(TemplateView):
 class BrowseEvents(TemplateView):
 	template_name = "events/browse.html"
 
+class MyEvents(TemplateView):
+	template_name = "events/myevents.html"
+
 
 class EventDetails(TemplateView):
     template_name = "events/details.html"

@@ -1,10 +1,10 @@
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 
 
-from django.shortcuts import redirect
+# from django.shortcuts import redirect
 from social_auth.middleware import SocialAuthExceptionMiddleware
 from social_auth.exceptions import AuthFailed
 
@@ -26,28 +26,24 @@ class LoginError(TemplateView):
 class Dashboard(TemplateView):
     template_name = "dashboard.html"
 
-    def dispatch(self, request, *args, **kwargs):
-
-        if request.user.is_authenticated():
-            return super(Dashboard, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
 
         user = self.request.user
         context['mwguser'] = models.MWGUser.objects.get(user=user)
+        context['events']  = models.Events.objects.all()
 
         return context
 
 
-class CreateEvent(TemplateView):
+class CreateEvent(Dashboard, TemplateView):
 	template_name = "events/create.html"
 
 
 class BrowseEvents(Dashboard, TemplateView):
 	template_name = "events/browse.html"
 
-class MyEvents(TemplateView):
+class MyEvents(Dashboard, TemplateView):
 	template_name = "events/myevents.html"
 
 
@@ -62,9 +58,4 @@ class MWGSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
         else:
             return super(MWGSocialAuthExceptionMiddleware, self)\
                                  .get_redirect_uri(request, exception)
-
-
-@login_required
-def profile(request):
-    user = request.user
 

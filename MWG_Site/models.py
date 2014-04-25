@@ -37,9 +37,8 @@ class MWGUser(models.Model):
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
     @property
-    def email(self):
-        return self.user.email
-
+    def events(self):
+        return models.Events.objects.filter(created_by=self.user)
 
     @property
     def is_admin(self):

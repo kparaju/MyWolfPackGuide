@@ -24,12 +24,17 @@ class LoginError(TemplateView):
     template_name = "login_error.html"
 
 class Dashboard(TemplateView):
-    template_name = "dashboard.html"
+    template_name = "dashboard.html
+
+    def dispatch(self, request, *args, **kwargs):
+
+       if request.user.is_authenticated():
+        return super(DistrictBase, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
-        user = self.request.user
 
+        user = self.request.user
         context['user'] = models.MWGUser.objects.get(user=user)
 
         return context

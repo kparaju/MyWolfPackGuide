@@ -63,28 +63,30 @@ class MWGAdmin(MWGUser):
 
 
 class Address(models.Model):
-    number       = models.IntegerField()
-    street       = models.CharField(max_length=100)
-    state_abbrev = models.CharField(max_length=2)
-    zipcode      = models.CharField(max_length=5, )
+    number       = models.IntegerField(null=True)
+    street       = models.CharField(max_length=100, null=True)
+    state_abbrev = models.CharField(max_length=2, null=True)
+    city         = models.CharField(max_length=100, null=True)
+    zipcode      = models.CharField(max_length=5, null=True)
+
+    class Meta:
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
 
     @property
     def get_address(self):
-        return "{} {} {} {}".format(self.number, self.street, self.zipcode, self.state_abbrev)
+        return "{} {}, {} {}, {}".format(self.number, self.street, self.city, self.zipcode, self.state_abbrev)
 
-# class Comment(models.Model):
-#     subject = models.CharField(max_length=100)
-#     body = models.CharField(max_length=500)
-#     user = models.ForeignKey(User)
-#     timestamp = models.TimeField(auto_now=True)
+    def __unicode__(self):
+        return unicode("{} {}, {}, {}".format(self.number, self.street, self.city, self.state_abbrev))
 
 
 class Event(models.Model):
-    name        = models.CharField(max_length=100)
+    name        = models.CharField(max_length=100, null=True)
     _picture    = models.ImageField((u'picture'), upload_to='events', db_column='picture', blank=True, null=True)
-    description = models.CharField(max_length=500)
-    price       = models.DecimalField(max_digits=5, decimal_places=2)
-    time        = models.DateTimeField(auto_now=False, auto_now_add=False)
+    description = models.CharField(max_length=500, null=True)
+    price       = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    time        = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     address     = models.ForeignKey(Address)
     created_by  = models.ForeignKey(User)
 
@@ -94,13 +96,16 @@ class Event(models.Model):
         it doesn't exist.
         """
         if self._picture.name is None or len(self._picture.name) < 1 or not fs.exists(self._picture.name):
-            self._picture.name = 'no-event-image.png'
+            self._picture.name = 'no-event-image.png' #Not currently implemented!!!
         return self._picture
 
     def set_picture(self, input):
         self._picture = input
 
     picture = property(get_picture, set_picture)
+
+    def __unicode__(self):
+        return unicode(self.name)
 
 
 

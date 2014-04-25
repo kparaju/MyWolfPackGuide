@@ -25,21 +25,22 @@ class Migration(SchemaMigration):
         # Adding model 'Address'
         db.create_table(u'MWG_Site_address', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('number', self.gf('django.db.models.fields.IntegerField')()),
-            ('street', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('state_abbrev', self.gf('django.db.models.fields.CharField')(max_length=2)),
-            ('zipcode', self.gf('django.db.models.fields.CharField')(max_length=5)),
+            ('number', self.gf('django.db.models.fields.IntegerField')(null=True)),
+            ('street', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
+            ('state_abbrev', self.gf('django.db.models.fields.CharField')(max_length=2, null=True)),
+            ('city', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
+            ('zipcode', self.gf('django.db.models.fields.CharField')(max_length=5, null=True)),
         ))
         db.send_create_signal(u'MWG_Site', ['Address'])
 
         # Adding model 'Event'
         db.create_table(u'MWG_Site_event', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
             ('_picture', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, db_column='picture', blank=True)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('price', self.gf('django.db.models.fields.DecimalField')(max_digits=5, decimal_places=2)),
-            ('time', self.gf('django.db.models.fields.DateTimeField')()),
+            ('description', self.gf('django.db.models.fields.CharField')(max_length=500, null=True)),
+            ('price', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=5, decimal_places=2)),
+            ('time', self.gf('django.db.models.fields.DateTimeField')(null=True)),
             ('address', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['MWG_Site.Address'])),
             ('created_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
         ))
@@ -63,22 +64,23 @@ class Migration(SchemaMigration):
     models = {
         u'MWG_Site.address': {
             'Meta': {'object_name': 'Address'},
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'number': ('django.db.models.fields.IntegerField', [], {}),
-            'state_abbrev': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
-            'street': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'zipcode': ('django.db.models.fields.CharField', [], {'max_length': '5'})
+            'number': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
+            'state_abbrev': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True'}),
+            'street': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
+            'zipcode': ('django.db.models.fields.CharField', [], {'max_length': '5', 'null': 'True'})
         },
         u'MWG_Site.event': {
             'Meta': {'object_name': 'Event'},
             '_picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'db_column': "'picture'", 'blank': 'True'}),
             'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MWG_Site.Address']"}),
             'created_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'price': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2'}),
-            'time': ('django.db.models.fields.DateTimeField', [], {})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
+            'price': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '2'}),
+            'time': ('django.db.models.fields.DateTimeField', [], {'null': 'True'})
         },
         u'MWG_Site.mwgadmin': {
             'Meta': {'object_name': 'MWGAdmin', '_ormbases': [u'MWG_Site.MWGUser']},

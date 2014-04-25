@@ -63,8 +63,8 @@ footer {
 }
 
   .name-and-background {
-    /*background: url('../bada.jpg');*/
     background-size: cover;
+    background-position-y:50%;
   }
 
   .name-and-background h1 {

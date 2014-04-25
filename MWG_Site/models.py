@@ -38,7 +38,7 @@ class MWGUser(models.Model):
 
     @property
     def events(self):
-        return models.Events.objects.filter(created_by=self.user)
+        return Event.objects.filter(created_by=self.user)
 
     @property
     def is_admin(self):

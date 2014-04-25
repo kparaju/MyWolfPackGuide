@@ -31,7 +31,7 @@ class Dashboard(TemplateView):
 
         user = self.request.user
         context['mwguser'] = models.MWGUser.objects.get(user=user)
-        context['events']  = models.Events.objects.all()
+        context['events']  = models.Event.objects.all()
 
         return context
 

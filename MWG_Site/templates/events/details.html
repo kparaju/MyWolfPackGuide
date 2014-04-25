@@ -10,7 +10,7 @@
 
     function initialize() {
       var geocoder;
-      var address = "2161 Avent Ferry Rd, Raleigh, NC 27606";
+      var address = "{{event.address.get_address }}";
 
       geocoder = new google.maps.Geocoder();
       geocoder.geocode({
@@ -39,8 +39,8 @@
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
           {% load static %}
-          <div class="jumbotron name-and-background" style="background:url({% static 'img/bada.jpg' %})"> 
-            <h1>Bada Wings</h1>
+          <div class="jumbotron name-and-background" style="background:#cc0000 url({{ event.picture.url }})"> 
+            <h1>{{event.name}}</h1>
           </div>
 
           <div id="map_canvas">
@@ -50,7 +50,7 @@
             <div class="col-8 col-sm-8 col-lg-8" >
               <h2>Description</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit interdum nulla, a rhoncus leo dignissim ut. Nunc porttitor porttitor turpis id ornare. Integer lacinia adipiscing ante, eu fringilla enim facilisis ac. Nam eget dui sed elit lacinia feugiat ut quis leo. Nam sed congue neque. Aliquam rutrum felis id nisl commodo, vel auctor augue cursus. Sed lacinia vel orci vel interdum. Maecenas metus nulla, mattis ut convallis quis, ullamcorper ac mauris. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec tempus, erat sit amet accumsan vehicula, turpis metus laoreet lorem, sed lacinia tortor turpis commodo justo. Cras sit amet porttitor lorem, rhoncus tempor lorem. Aenean elementum diam ut varius dictum. Suspendisse in ante pulvinar, luctus erat eu, faucibus erat.
+                {{event.description}}
               </p>
               <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
             </div><!--/span-->
@@ -58,9 +58,9 @@
             <div class="col-4 col-sm-4 col-lg-4">
               <h2>Pricing &amp; Location</h2>
               <p>
-                <b>Price: </b> $6.50 <br />
-                <b>Address: </b> 2161 Avent Ferry Rd, Raleigh, NC 27606 <br /> 
-                <b>Date/Time:</b> March 19, 1994 12:00 PM <br /> 
+                <b>Price: </b> ${{event.price}} <br />
+                <b>Address: </b> {{event.address.get_address}}<br /> 
+                <b>Date/Time:</b> <date>{{event.time}}</date> <br /> 
               </p>
               <p><a class="btn btn-primary" href="#" role="button">Purchase &raquo;</a>
               <a class="btn btn-info" href="#" role="button">Website &raquo;</a></p>

@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, DetailView
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
+import datetime
 # from django.contrib.auth.decorators import login_required
 
 
@@ -23,7 +24,24 @@ class Login(TemplateView):
 class LoginError(TemplateView):
     template_name = "login_error.html"
 
-class Dashboard(TemplateView):
+class BaseView(TemplateView):
+    template_name = "base.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(BaseView, self).get_context_data(**kwargs)
+
+        today = datetime.date.today()
+        week  = []
+        for day in range(0,7):
+            week.append(today + datetime.timedelta(days=day))
+
+        print week
+        context['week'] = week
+
+        return context
+
+
+class Dashboard(BaseView, TemplateView):
     template_name = "dashboard.html"
 
     def get_context_data(self, **kwargs):

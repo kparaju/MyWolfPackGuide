@@ -75,6 +75,10 @@ footer {
     height: 250px;
   }
 
+  .calendar-title {
+    text-align: center;
+  }
+
   .google-button {
     background:url('../img/google_base.png');
     background-size:50 100;

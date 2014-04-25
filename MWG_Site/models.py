@@ -70,7 +70,7 @@ class Address(models.Model):
 
     @property
     def get_address(self):
-        return "%d %s, %s %s" %self.number %self.street %self.zipcode %self.state_abbrev
+        return "{} {} {} {}".format(self.number, self.street, self.zipcode, self.state_abbrev)
 
 # class Comment(models.Model):
 #     subject = models.CharField(max_length=100)

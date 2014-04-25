@@ -25,6 +25,7 @@ class LoginError(TemplateView):
 
 class Dashboard(TemplateView):
     template_name = "dashboard.html"
+
     def dispatch(self, request, *args, **kwargs):
 
         if request.user.is_authenticated():
@@ -34,7 +35,7 @@ class Dashboard(TemplateView):
         context = super(Dashboard, self).get_context_data(**kwargs)
 
         user = self.request.user
-        context['user'] = models.MWGUser.objects.get(user=user)
+        context['mwguser'] = models.MWGUser.objects.get(user=user)
 
         return context
 

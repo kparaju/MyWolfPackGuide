@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 # from django.contrib.auth.decorators import login_required
@@ -47,8 +47,12 @@ class MyEvents(Dashboard, TemplateView):
 	template_name = "events/myevents.html"
 
 
-class EventDetails(TemplateView):
+class EventDetails(DetailView):
+    model = models.Event
+    pk_url_kwarg = 'pk'
+    context_object_name = 'event'
     template_name = "events/details.html"
+
 
 
 class MWGSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):

@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import lo:q!:q:qgin_required
+from django.contrib.auth.decorators import login_required
 
 
 from django.shortcuts import redirect

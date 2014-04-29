@@ -62,6 +62,11 @@ footer {
 
 }
 
+
+.center {
+  text-align: center; 
+}
+
   .name-and-background {
     background-size: cover;
     background-position-y:50%;

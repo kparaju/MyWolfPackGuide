@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,12 +68,6 @@
                 <li>
                   <a href="#">My Profile</a>
                 </li>
-                <li>
-                  <a href="#">Something Else</a>
-                </li>
-                <li>
-                 <a href="#">Something Else</a>
-                </li>
                 <li class="divider">
                 </li>
                 <li>
@@ -91,12 +86,12 @@
    <div class="row row-offcanvas row-offcanvas-right"> <!-- div left open for template inheritance-->
 
         <div class="col-xs-3 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-          <h3>Upcoming Events</h3>
+          <h3 class="calendar-title">My Calendar</h3>
           <br />
           <div class="list-group">
-            <a href="#" class="list-group-item active">Foobar</a>
-            <a href="#" class="list-group-item">Something Else</a>
-            <a href="#" class="list-group-item">Not At All</a>
+            {% for day in week %}
+            <a href="#" class="list-group-item"><date>{{ day|naturalday|title }}</date></a>
+            {% endfor %}
           </div>
         </div><!--/span-->
 

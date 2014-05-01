@@ -1,15 +1,13 @@
 from django.views.generic import TemplateView, DetailView
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from MWG_Site.forms import EventForm, AddressForm
 import datetime
-# from django.contrib.auth.decorators import login_required
-
-
-# from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 from social_auth.middleware import SocialAuthExceptionMiddleware
-from social_auth.exceptions import AuthFailed
-
-from MWG_Site import models
+from social_auth.exceptions import AuthFailed, AuthCanceled
+from MWG_Site.models import Event, Address, MWGUser
 
 def home(request):
     if request.user and request.user.is_authenticated():
@@ -24,6 +22,7 @@ class Login(TemplateView):
 class LoginError(TemplateView):
     template_name = "login_error.html"
 
+
 class BaseView(TemplateView):
     template_name = "base.html"
 
@@ -35,9 +34,7 @@ class BaseView(TemplateView):
         for day in range(0,7):
             week.append(today + datetime.timedelta(days=day))
 
-        print week
         context['week'] = week
-
         return context
 
 
@@ -48,34 +45,52 @@ class Dashboard(BaseView, TemplateView):
         context = super(Dashboard, self).get_context_data(**kwargs)
 
         user = self.request.user
-        context['mwguser'] = models.MWGUser.objects.get(user=user)
-        context['events']  = models.Event.objects.all()
-
+        context['mwguser'] = MWGUser.objects.get(user=user)
+        context['events']  = Event.objects.all()
         return context
 
 
-class CreateEvent(Dashboard, TemplateView):
-	template_name = "events/create.html"
+@login_required
+def create_event(request):
+    if request.method == 'POST':
+        event_form = EventForm(request.POST)
+        address_form = AddressForm(request.POST)
+        if event_form.is_valid() and address_form.is_valid():
+            #cleaned_data = form.cleaned_data
+            event = Event(**event_form.cleaned_event_data)
+            address = Address(**address_form.cleaned_address_data)
+            address.save()
+            event.address = address
+            event.save()
+            return HttpResponseRedirect(reverse('event_details', args=[event.pk]))
+    else:
+        event_form = EventForm()
+        address_form = AddressForm()
+
+    return render(request, 'events/create.html', {
+        'event_form': event_form,
+        'address_form': address_form,
+    })
 
 
 class BrowseEvents(Dashboard, TemplateView):
 	template_name = "events/browse.html"
 
+
 class MyEvents(Dashboard, TemplateView):
 	template_name = "events/myevents.html"
 
 
-class EventDetails(DetailView):
-    model = models.Event
+class EventDetails(DetailView, BaseView):
+    model = Event
     pk_url_kwarg = 'pk'
     context_object_name = 'event'
     template_name = "events/details.html"
 
 
-
 class MWGSocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
     def get_redirect_uri(self, request, exception):
-        if isinstance(exception, AuthFailed):
+        if isinstance(exception, AuthFailed) or isinstance(exception, AuthCanceled):
            return 'login-error'
         else:
             return super(MWGSocialAuthExceptionMiddleware, self)\

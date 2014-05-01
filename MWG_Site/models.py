@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.files.storage import FileSystemStorage
+from django.utils.translation import gettext as _
 from MyWolfpackGuide import settings
 from django.db.models.signals import post_save
 # from social_auth.models import UserSocialAuth
@@ -9,7 +10,7 @@ fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
 class MWGUser(models.Model):
     user       = models.OneToOneField(User)
-    _picture   = models.ImageField((u'picture'), upload_to='users', db_column='picture', blank=True, null=True)
+    _picture   = models.ImageField(_(u'picture'), upload_to='users', db_column='picture', blank=True, null=True)
 
     def get_picture(self):
         """
@@ -63,10 +64,10 @@ class MWGAdmin(MWGUser):
 
 
 class Address(models.Model):
-    number       = models.IntegerField(null=True)
-    street       = models.CharField(max_length=100, null=True)
-    state_abbrev = models.CharField(max_length=2, null=True)
+    line_1       = models.CharField(max_length=100, null=True)
+    line_2       = models.CharField(max_length=100, null=True)
     city         = models.CharField(max_length=100, null=True)
+    state_abbrev = models.CharField(max_length=2, null=True)
     zipcode      = models.CharField(max_length=5, null=True)
 
     class Meta:
@@ -83,8 +84,8 @@ class Address(models.Model):
 
 class Event(models.Model):
     name        = models.CharField(max_length=100, null=True)
-    _picture    = models.ImageField((u'picture'), upload_to='events', db_column='picture', blank=True, null=True)
-    description = models.CharField(max_length=500, null=True)
+    _picture    = models.ImageField(_(u'picture'), upload_to='events', db_column='picture', blank=True, null=True)
+    description = models.TextField(max_length=500, null=True)
     price       = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     time        = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     address     = models.ForeignKey(Address)

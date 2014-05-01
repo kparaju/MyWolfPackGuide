@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^login-error/', views.LoginError.as_view(), name='login-error'),
     url(r'^events/browse/$', views.BrowseEvents.as_view(), name='browse-events'),
     url(r'^events/my/$', views.MyEvents.as_view(), name='my-events'),
-    url(r'^events/create/(?P<pk>\w+)', views.CreateEvent.as_view(), name='create-event'),
+    url(r'^events/create/', views.create_event, name='create-event'),
     url(r'^events/details/(?P<pk>\w+)', views.EventDetails.as_view(), name='event-details'),
 )
 

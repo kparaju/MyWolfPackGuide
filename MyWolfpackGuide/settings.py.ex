@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'south',
     'MWG_Site',
     'social_auth',
+    'django.contrib.humanize',
 )
 
 MIDDLEWARE_CLASSES = (

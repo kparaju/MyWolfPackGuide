@@ -25,10 +25,10 @@ class Migration(SchemaMigration):
         # Adding model 'Address'
         db.create_table(u'MWG_Site_address', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('number', self.gf('django.db.models.fields.IntegerField')(null=True)),
-            ('street', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('state_abbrev', self.gf('django.db.models.fields.CharField')(max_length=2, null=True)),
+            ('line_1', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
+            ('line_2', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
             ('city', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
+            ('state_abbrev', self.gf('django.db.models.fields.CharField')(max_length=2, null=True)),
             ('zipcode', self.gf('django.db.models.fields.CharField')(max_length=5, null=True)),
         ))
         db.send_create_signal(u'MWG_Site', ['Address'])
@@ -66,9 +66,9 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Address'},
             'city': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'number': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
+            'line_1': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
+            'line_2': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
             'state_abbrev': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True'}),
-            'street': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
             'zipcode': ('django.db.models.fields.CharField', [], {'max_length': '5', 'null': 'True'})
         },
         u'MWG_Site.event': {

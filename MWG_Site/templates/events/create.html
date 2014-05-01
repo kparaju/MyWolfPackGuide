@@ -1,0 +1,38 @@
+{% extends 'dashboard.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block head_js %}
+{{ form.media }}
+{% endblock %}
+
+<!-- for more info on the format of this template
+    see http://django-bootstrap-form.readthedocs.org/en/latest/#usage -->
+{% block dashboard_content %}
+
+<h1>Create an Event</h1>
+<hr>
+<div class="row">
+    <div class="col-md-8 col-md-offset-0">
+<form action="{% url 'create-event' %}" method="post" role="form">
+    
+    <!-- Begin Event Form -->
+    <legend>Event Details</legend>
+    {{ event_form|bootstrap }}
+    <!-- END Event Form -->
+    <br/>
+    <!-- BEGIN Address Form -->
+    <legend>Location</legend>
+    {{ address_form|bootstrap }}
+    <!-- END Address Form -->
+
+    {% csrf_token %}
+    <div class="form-actions">  
+        <button type="submit" class="btn btn-primary">Submit</button>  
+        <button class="btn">Cancel</button>  
+    </div>
+</form>
+</div>
+</div>
+
+{% endblock %}

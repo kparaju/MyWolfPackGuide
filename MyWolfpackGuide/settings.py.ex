@@ -75,14 +75,16 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'MWG_Site',
     'social_auth',
     'django.contrib.humanize',
+    'localflavor',
+    'bootstrapform',
+    'bootstrap3_datetime',
+    'MWG_Site',
 )
 
 MIDDLEWARE_CLASSES = (

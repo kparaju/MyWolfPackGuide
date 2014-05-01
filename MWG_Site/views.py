@@ -65,6 +65,8 @@ def create_event(request):
             return HttpResponseRedirect(reverse('event_details', args=[event.pk]))
     else:
         event_form = EventForm()
+        print event_form
+        
         address_form = AddressForm()
 
     return render(request, 'events/create.html', {

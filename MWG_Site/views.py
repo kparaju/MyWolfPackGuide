@@ -66,13 +66,14 @@ def create_event(request):
     else:
         event_form = EventForm()
         print event_form
-        
+
         address_form = AddressForm()
 
     return render(request, 'events/create.html', {
         'event_form': event_form,
         'address_form': address_form,
     })
+
 
 
 class BrowseEvents(Dashboard, TemplateView):

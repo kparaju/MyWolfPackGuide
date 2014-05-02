@@ -1,38 +1,53 @@
 {% extends 'dashboard.html' %}
 {% load bootstrap %}
-{% load static %}
 
 {% block head_js %}
-{{ form.media }}
+  {{ form.media }}
 {% endblock %}
 
 <!-- for more info on the format of this template
-    see http://django-bootstrap-form.readthedocs.org/en/latest/#usage -->
+  see http://django-bootstrap-form.readthedocs.org/en/latest/#usage -->
 {% block dashboard_content %}
 
-<h1>Create an Event</h1>
-<hr>
-<div class="row">
-    <div class="col-md-8 col-md-offset-0">
-<form action="{% url 'create-event' %}" method="post" role="form">
-    
-    <!-- Begin Event Form -->
-    <legend>Event Details</legend>
-    {{ event_form|bootstrap }}
-    <!-- END Event Form -->
-    <br/>
-    <!-- BEGIN Address Form -->
-    <legend>Location</legend>
-    {{ address_form|bootstrap }}
-    <!-- END Address Form -->
+  <div class="row">
+    <div class="col-md-10 col-md-offset-0">
 
-    {% csrf_token %}
-    <div class="form-actions">  
-        <button type="submit" class="btn btn-primary">Submit</button>  
-        <button class="btn">Cancel</button>  
+      <div class="page-header">
+        <h1>Create an Event</h1>
+      </div>
+
+      <form action="{% url 'create-event' %}" method="post" role="form">
+        {% csrf_token %}
+
+        <!-- Begin Event Form -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Event Details</h4>
+          </div>
+          <div class="panel-body">
+            {{ event_form|bootstrap }}
+          </div>
+        </div>
+        <!-- END Event Form -->
+
+        <!-- BEGIN Address Form -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Location</h4>
+          </div>
+          <div class="panel-body">
+            {{ address_form|bootstrap }}
+          </div>
+        </div>
+        <!-- END Address Form -->  
+
+        <div class="well well-lg">  
+          <button type="submit" class="btn btn-primary">Submit</button>  
+          <button type="button" class="btn btn-danger">Cancel</button>  
+        </div>
+
+      </form>
+
     </div>
-</form>
-</div>
-</div>
-
+  </div>
 {% endblock %}

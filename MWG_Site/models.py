@@ -85,7 +85,7 @@ class Address(models.Model):
 class Event(models.Model):
     name        = models.CharField(max_length=100, null=True)
     _picture    = models.ImageField(_(u'picture'), upload_to='events', db_column='picture', blank=True, null=True)
-    description = models.TextField(max_length=500, null=True)
+    description = models.CharField(max_length=500, null=True)
     price       = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     time        = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     address     = models.ForeignKey(Address)

@@ -2,7 +2,7 @@
 {% load bootstrap %}
 
 {% block head_js %}
-  {{ form.media }}
+  {{ event_form.media }}
 {% endblock %}
 
 <!-- for more info on the format of this template
@@ -16,7 +16,7 @@
         <h1>Create an Event</h1>
       </div>
 
-      <form action="{% url 'create-event' %}" method="post" role="form">
+      <form action="{% url 'event-form-submit' %}" method="post" role="form">
         {% csrf_token %}
 
         <!-- Begin Event Form -->

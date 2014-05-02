@@ -95,12 +95,25 @@ class AddressFormView(FormView):
     form_class = AddressForm
     success_url = '/'
 
+
 class BrowseEvents(Dashboard, TemplateView):
-	template_name = "events/browse.html"
+    template_name = "events/browse.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(BrowseEvents, self).get_context_data(**kwargs)
+        context['events']  = Event.objects.all()
+        return context
 
 
 class MyEvents(Dashboard, TemplateView):
-	template_name = "events/myevents.html"
+    template_name = "events/myevents.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(MyEvents, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        context['events'] = Event.objects.filter(created_by=user)
+        return context
 
 
 class EventDetails(DetailView, BaseView):

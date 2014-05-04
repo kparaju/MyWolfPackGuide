@@ -113,7 +113,7 @@ class BrowseEvents(Dashboard, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(BrowseEvents, self).get_context_data(**kwargs)
-        context['events']  = Event.objects.all()
+        context['events']  = Event.objects.filter(time__gte=datetime.datetime.now())
         return context
 
 

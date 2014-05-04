@@ -258,3 +258,35 @@ footer {
   background: #ddd;
 }
 
+.event-list-item-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.event-list-item date {
+  font-style: italic;
+  color: #666;
+}
+
+.event-list-item-desc {
+  margin-top: 12px;
+}
+
+.event-list-item {
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.event-list-item:hover .event-list-item-name{
+}
+
+.browse-events-picture {
+  margin-bottom: 10px;
+}
+
+.event-list-item:hover .browse-events-picture {
+  box-shadow:0 0 15px #555;
+}

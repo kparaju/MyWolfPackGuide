@@ -17,12 +17,13 @@
                 <div class="col-md-3">
                     <div class="event-list-item">
                         <div class="center">
-                            <div style="width:190px; height:100px; background-color: #cc0000; background-size: cover; background-image: url({{ event.picture.url }})"> 
+                            <div class="browse-events-picture" style="background-image: url({{ event.picture.url }})"> 
                             
                             </div>
                         </div>
                         <h4>{{event.name}}</h4>
-                        <span>{{event.description | truncatechars:120}}</span>
+                        <div>At {{event.time}}</div>
+                        <div>{{event.description | truncatechars:120}}</div>
                     </div><!-- End Listing-->
                 </div>
             {% endfor %}

@@ -232,9 +232,9 @@ footer {
  * Calendar Accordion Styling
  * --------------------------------------------------
  */
-#accordion .glyphicon { margin-right:10px; }
-#accordion .calendar-day:hover { font-weight:bold; text-decoration:none; }
-#accordion .panel-heading .badge { position:absolute; right:25px; }
+.accordion .glyphicon { margin-right:10px; }
+.accordion .calendar-day:hover { text-decoration:none; }
+.accordion .panel-heading .badge { position:absolute; right:25px; }
 .panel-collapse>.list-group .list-group-item:first-child {border-top-right-radius: 0;border-top-left-radius: 0;}
 .panel-collapse>.list-group .list-group-item {border-width: 1px 0;}
 .panel-collapse>.list-group {margin-bottom: 0;}

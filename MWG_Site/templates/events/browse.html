@@ -12,50 +12,22 @@
 
 		<br />
 		<br />
-		
-    	<div class="row">
-    		<div class="col-md-3">
-    			<div class="event-list-item">
-                    <div class="center">
-                        <img src="http://placekitten.com/190/100" />
-                    </div>
-    				<h4>Lorem at ipsum ipsum</h4>
-    				<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper mi quis adipiscing dapibus. Donec sit amet</span>
-                </div><!-- End Listing-->
-    		</div>
+		<div class="row">
+            {% for event in events%}
+                <div class="col-md-3">
+                    <div class="event-list-item">
+                        <div class="center">
+                            <div style="width:190px; height:100px; background-color: #cc0000; background-size: cover; background-image: url({{ event.picture.url }})"> 
+                            
+                            </div>
+                        </div>
+                        <h4>{{event.name}}</h4>
+                        <span>{{event.description | truncatechars:120}}</span>
+                    </div><!-- End Listing-->
+                </div>
+            {% endfor %}
+        </div>
+        
 
-            <div class="col-md-3">
-                <div class="event-list-item">
-                    <div class="center">
-                        <img src="http://placekitten.com/190/101" />
-                    </div>
-                    <h4>FooBar</h4>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper mi quis adipiscing dapibus. Donec sit amet</span>
-                </div><!-- End Listing-->
-            </div>
-
-            <div class="col-md-3">
-                <div class="event-list-item">
-                    <div class="center">
-                        <img src="http://placekitten.com/190/99" />
-                    </div>
-                    <h4>FooBar</h4>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper mi quis adipiscing dapibus. Donec sit amet</span>
-                </div><!-- End Listing-->
-            </div>
-
-            <div class="col-md-3">
-                <div class="event-list-item">
-                    <div class="center">
-                        <img src="http://placekitten.com/190/100" />
-                    </div>
-                    <h4>FooBar</h4>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper mi quis adipiscing dapibus. Donec sit amet</span>
-                </div><!-- End Listing-->
-            </div>
-
-
-
-
-    	</div>
+    	
 {% endblock %} 

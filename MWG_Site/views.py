@@ -48,11 +48,11 @@ class Dashboard(BaseView, View):
 
         user = self.request.user
         context['mwguser'] = MWGUser.objects.get(user=user)
-        context['events']  = Event.objects.all()
+        context['dash_events']  = Event.objects.all()
         return context
 
 
-class CreateEvent(BaseView, MultipleFormsView):
+class CreateEvent(Dashboard, MultipleFormsView):
 
     template_name = 'events/create.html'
     success_url = reverse_lazy('home')

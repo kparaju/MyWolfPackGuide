@@ -9,12 +9,12 @@
 	        	<img src="http://placekitten.com/175/175" class="user-avatar" />
 	        </div>
 	        <div class="col-md-9">
-	        	<div class="user-profile center">
+	        	<div class="user-profile">
 	        		<span id="name">{{ mwguser.name }}</span>
 	        	</div>
 	        	<br />
 	        	<div class="user-stat-bar row">
-	        		<div class="col-md-3 selected"><a href="{% url 'browse-events'%}">Browse<br /><span class="user-stat-bar-stat">{{ events|length }}</span></a></div>
+	        		<div class="col-md-3 selected"><a href="{% url 'browse-events'%}">Browse<br /><span class="user-stat-bar-stat">{{ dash_events|length }}</span></a></div>
 	        		<div class="col-md-3"><a href="{% url 'my-events'%}">My Events<br /><span class="user-stat-bar-stat">{{ mwguser.events|length }}</span></a></div>
 	        		<div class="col-md-3"><a href="{% url 'create-event' %}">Create<br /><span class="user-stat-bar-stat glyphicon glyphicon-plus"></span></a></div>
 	        	</div>

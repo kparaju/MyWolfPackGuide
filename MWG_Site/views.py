@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, DetailView, View
-from MWG_Site.custom_views import MultipleFormsView
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.views.generic.base import TemplateResponseMixin
+from MWG_Site.custom_views import MultipleFormsMixin
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from MWG_Site.forms import EventForm, AddressForm
@@ -8,7 +9,7 @@ import datetime
 from django.utils import timezone
 from social_auth.middleware import SocialAuthExceptionMiddleware
 from social_auth.exceptions import AuthFailed, AuthCanceled
-from MWG_Site.models import Event, Address, MWGUser
+from MWG_Site.models import Event, MWGUser
 
 def home(request):
     if request.user and request.user.is_authenticated():
@@ -52,45 +53,59 @@ class Dashboard(BaseView, View):
         return context
 
 
-class CreateEvent(Dashboard, MultipleFormsView):
+class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
 
     template_name = 'events/create.html'
-    success_url = reverse_lazy('home')
 
     form_classes = {
         'event_form': EventForm,
         'address_form': AddressForm,
     }
 
-    # def form_valid(self, form):
+    def get(self, request, *args, **kwargs):
+        form_classes = self.get_form_classes()
+        forms = self.get_forms(form_classes)
+        return self.render_to_response(self.get_context_data(forms=forms))
+ 
+    def post(self, request, *args, **kwargs):
+        form_classes = self.get_form_classes()
+        forms = self.get_forms(form_classes)
+        
+        print dir(forms.get('address_form').instance)
 
-    #     # Get User Object
-    #     user = self.request.user
+        if all([form.is_valid() for form in forms.values()]):
 
-    #     #Save Address Object
-    #     address = Address.objects.get_or_create(
-    #         line_1=form['line_1'],
-    #         line_2=form['line_2'],
-    #         city=form['city'],
-    #         state_abbrev=form['state_abbrev'],
-    #         zipcode=form['zipcode'],
-    #     )
 
-    #     # Adapt time to timezone
-    #     time = timezone.make_aware(form['time'], timezone.get_current_timezone())
+            # Get User Object
+            user = self.request.user
 
-    #     #Save Event Object with user, address, and time
-    #     event = Event.objects.create (
-    #         name=form['name'],
-    #         _picture=form['_picture'],
-    #         description=form['description'],
-    #         price=form['price'],
-    #         time=time,
-    #         address=address,
-    #         created_by=user,
-    #     )
+            # Save the Address Form
+            address = forms.get('address_form').instance
+            address.save()
 
-    #     return HttpResponseRedirect(reverse(event.get_absolute_url))
+            # Get the values from the Event Form
+            event_form = forms.get('event_form').instance
+
+            # Adapt time to timezone
+            time = timezone.make_aware(event_form.time, timezone.get_current_timezone())
+
+            #Save Event Object with user, address, and time
+            event = Event.objects.create (
+                name=event_form.name,
+                _picture=event_form._picture,
+                description=event_form.description,
+                price=event_form.price,
+                time=time,
+                address=address,
+                created_by=user,
+            )
+
+            # Save the Event Object
+            event.save()
+
+            return HttpResponseRedirect(reverse('event-details', kwargs={'pk':event.pk}))
+        else:
+            return self.forms_invalid(forms)
 
 
 class BrowseEvents(Dashboard, TemplateView):

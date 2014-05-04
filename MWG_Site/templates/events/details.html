@@ -24,6 +24,11 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
               }
               var map = new google.maps.Map(mapCanvas, mapOptions);
+              var marker = new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: map,
+                title: "{{event.address.get_address}}"
+              });
           }
         });
     }

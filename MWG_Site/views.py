@@ -50,6 +50,7 @@ class Dashboard(BaseView, View):
         user = self.request.user
         context['mwguser'] = MWGUser.objects.get(user=user)
         context['dash_events']  = Event.objects.all()
+        context['page'] = 'create'
         return context
 
 
@@ -114,6 +115,7 @@ class BrowseEvents(Dashboard, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(BrowseEvents, self).get_context_data(**kwargs)
         context['events']  = Event.objects.filter(time__gte=datetime.datetime.now())
+        context['page'] = 'browse'
         return context
 
 
@@ -125,6 +127,7 @@ class MyEvents(Dashboard, TemplateView):
 
         user = MWGUser.objects.get(user=self.request.user)
         context['events'] = user.events
+        context['page'] = 'me'
         return context
 
 

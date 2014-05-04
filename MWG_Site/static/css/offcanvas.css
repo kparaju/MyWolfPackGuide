@@ -134,6 +134,7 @@ footer {
   font-weight: bold;
   text-transform: uppercase;
   border-top: solid 1px #ccc;
+  height: 76px;
 }
 
 .user-stat-bar > div a{

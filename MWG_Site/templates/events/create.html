@@ -2,7 +2,7 @@
 {% load bootstrap %}
 
 {% block head_js %}
-  {{ event_form.media }}
+  {{ forms.event_form.media }}
 {% endblock %}
 
 <!-- for more info on the format of this template
@@ -16,7 +16,7 @@
         <h1>Create an Event</h1>
       </div>
 
-      <form action="{% url 'event-form-submit' %}" method="post" role="form">
+      <form action="{% url 'create-event' %}" method="post" role="form">
         {% csrf_token %}
 
         <!-- Begin Event Form -->
@@ -25,7 +25,7 @@
             <h4>Event Details</h4>
           </div>
           <div class="panel-body">
-            {{ event_form|bootstrap }}
+            {{ forms.event_form|bootstrap }}
           </div>
         </div>
         <!-- END Event Form -->
@@ -36,7 +36,7 @@
             <h4>Location</h4>
           </div>
           <div class="panel-body">
-            {{ address_form|bootstrap }}
+            {{ forms.address_form|bootstrap }}
           </div>
         </div>
         <!-- END Address Form -->  

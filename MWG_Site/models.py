@@ -4,7 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.utils.translation import gettext as _
 from MyWolfpackGuide import settings
 from django.db.models.signals import post_save
-# from social_auth.models import UserSocialAuth
+from django.core.urlresolvers import reverse
 
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
@@ -65,10 +65,10 @@ class MWGAdmin(MWGUser):
 
 class Address(models.Model):
     line_1       = models.CharField(max_length=100, null=True)
-    line_2       = models.CharField(max_length=100, null=True)
+    line_2       = models.CharField(max_length=100, null=True, blank=True)
     city         = models.CharField(max_length=100, null=True)
     state_abbrev = models.CharField(max_length=2, null=True)
-    zipcode      = models.CharField(max_length=5, null=True)
+    zipcode      = models.CharField(max_length=5, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Address'
@@ -76,17 +76,17 @@ class Address(models.Model):
 
     @property
     def get_address(self):
-        return "{} {}, {} {}, {}".format(self.number, self.street, self.city, self.zipcode, self.state_abbrev)
+        return "{} {}, {} {}, {}".format(self.line_1, self.line_2, self.city, self.zipcode, self.state_abbrev)
 
     def __unicode__(self):
-        return unicode("{} {}, {}, {}".format(self.number, self.street, self.city, self.state_abbrev))
+        return unicode("{} {}, {}, {}".format(self.line_1, self.line_2, self.city, self.state_abbrev))
 
 
 class Event(models.Model):
     name        = models.CharField(max_length=100, null=True)
     _picture    = models.ImageField(_(u'picture'), upload_to='events', db_column='picture', blank=True, null=True)
     description = models.CharField(max_length=500, null=True)
-    price       = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    price       = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     time        = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     address     = models.ForeignKey(Address)
     created_by  = models.ForeignKey(User)
@@ -107,6 +107,9 @@ class Event(models.Model):
 
     def __unicode__(self):
         return unicode(self.name)
+
+    def get_absolute_url(self):
+        return reverse('event-details', kwargs={'pk': self.pk})
 
 
 

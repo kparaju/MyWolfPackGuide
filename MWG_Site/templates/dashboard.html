@@ -10,13 +10,13 @@
 	        </div>
 	        <div class="col-md-9">
 	        	<div class="user-profile center">
-	        		<span id="name">{{mwguser.name}}</span>
+	        		<span id="name">{{ mwguser.name }}</span>
 	        	</div>
 	        	<br />
 	        	<div class="user-stat-bar row">
-	        		<div class="col-md-3 selected"><a href="{% url 'browse-events'%}">Browse</a><br /><span class="user-stat-bar-stat">{{events|length}}</span></div>
-	        		<div class="col-md-3"><a href="{% url 'my-events'%}">My Events</a><br /><span class="user-stat-bar-stat">{{mwguser.events|length}}</span></div>
-	        		<div class="col-md-3"><a href="{% url 'create-event' %}">Create</a><br /><span class="user-stat-bar-stat">+</span></div>
+	        		<div class="col-md-3 selected"><a href="{% url 'browse-events'%}">Browse</a><br /><span class="user-stat-bar-stat">{{ events|length }}</span></div>
+	        		<div class="col-md-3"><a href="{% url 'my-events'%}">My Events</a><br /><span class="user-stat-bar-stat">{{ mwguser.events|length }}</span></div>
+	        		<div class="col-md-3"><a href="{% url 'create-event' %}">Create</a><br /><span class="user-stat-bar-stat glyphicon glyphicon-plus"></span></div>
 	        	</div>
 	        </div>
 
@@ -25,12 +25,7 @@
     	</div>
 
     	<hr />
-    	{% block dashboard_content %}
 
-    	{% endblock dashboard_content %}
-
+    	{% block dashboard_content %}{% endblock dashboard_content %}
     </div>
-
-
-
 {% endblock %}

@@ -1,11 +1,11 @@
-from django.views.generic import TemplateView, DetailView
-from django.views.generic.edit import FormView
-from django.core.urlresolvers import reverse
+from django.views.generic import TemplateView, DetailView, View
+from MWG_Site.custom_views import MultipleFormsView
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-# from django.http import HttpResponseRedirect
 from MWG_Site.forms import EventForm, AddressForm
 import datetime
-# from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 from social_auth.middleware import SocialAuthExceptionMiddleware
 from social_auth.exceptions import AuthFailed, AuthCanceled
 from MWG_Site.models import Event, Address, MWGUser
@@ -24,23 +24,24 @@ class LoginError(TemplateView):
     template_name = "login_error.html"
 
 
-class BaseView(TemplateView):
-    template_name = "base.html"
+class BaseView(View):
 
     def get_context_data(self, **kwargs):
         context = super(BaseView, self).get_context_data(**kwargs)
 
+        user = MWGUser.objects.get(user=self.request.user)
         today = datetime.date.today()
         week  = []
         for day in range(0,7):
-            week.append(today + datetime.timedelta(days=day))
+            day = today + datetime.timedelta(days=day)
+            events = user.events.filter(time__range=(day, day+datetime.timedelta(days=1)))
+            week.append({day:events})
 
         context['week'] = week
         return context
 
 
-class Dashboard(BaseView, TemplateView):
-    template_name = "dashboard.html"
+class Dashboard(BaseView, View):
 
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
@@ -51,49 +52,45 @@ class Dashboard(BaseView, TemplateView):
         return context
 
 
-# @login_required
-# def create_event(request):
-#     if request.method == 'POST':
-#         event_form = EventForm(request.POST)
-#         address_form = AddressForm(request.POST)
-#         if event_form.is_valid() and address_form.is_valid():
-#             #cleaned_data = form.cleaned_data
-#             event = Event(**event_form.cleaned_event_data)
-#             address = Address(**address_form.cleaned_address_data)
-#             address.save()
-#             event.address = address
-#             event.save()
-#             return HttpResponseRedirect(reverse('event_details', args=[event.pk]))
-#     else:
-#         event_form = EventForm()
-#         print event_form
+class CreateEvent(BaseView, MultipleFormsView):
 
-#         address_form = AddressForm()
-
-#     return render(request, 'events/create.html', {
-#         'event_form': event_form,
-#         'address_form': address_form,
-#     })
-
-
-class CreateEvent(Dashboard, TemplateView):
     template_name = 'events/create.html'
+    success_url = reverse_lazy('home')
 
-    def get_context_data(self, **kwargs):
-        context = super(CreateEvent, self).get_context_data(**kwargs)
-        context['event_form'] = EventForm
-        context['address_form'] = AddressForm
-        return context
+    form_classes = {
+        'event_form': EventForm,
+        'address_form': AddressForm,
+    }
 
+    # def form_valid(self, form):
 
-class EventFormView(FormView):
-    form_class = EventForm
-    success_url = '/'
+    #     # Get User Object
+    #     user = self.request.user
 
+    #     #Save Address Object
+    #     address = Address.objects.get_or_create(
+    #         line_1=form['line_1'],
+    #         line_2=form['line_2'],
+    #         city=form['city'],
+    #         state_abbrev=form['state_abbrev'],
+    #         zipcode=form['zipcode'],
+    #     )
 
-class AddressFormView(FormView):
-    form_class = AddressForm
-    success_url = '/'
+    #     # Adapt time to timezone
+    #     time = timezone.make_aware(form['time'], timezone.get_current_timezone())
+
+    #     #Save Event Object with user, address, and time
+    #     event = Event.objects.create (
+    #         name=form['name'],
+    #         _picture=form['_picture'],
+    #         description=form['description'],
+    #         price=form['price'],
+    #         time=time,
+    #         address=address,
+    #         created_by=user,
+    #     )
+
+    #     return HttpResponseRedirect(reverse(event.get_absolute_url))
 
 
 class BrowseEvents(Dashboard, TemplateView):
@@ -111,12 +108,12 @@ class MyEvents(Dashboard, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MyEvents, self).get_context_data(**kwargs)
 
-        user = self.request.user
-        context['events'] = Event.objects.filter(created_by=user)
+        user = MWGUser.objects.get(user=self.request.user)
+        context['events'] = user.events
         return context
 
 
-class EventDetails(DetailView, BaseView):
+class EventDetails(BaseView, DetailView):
     model = Event
     pk_url_kwarg = 'pk'
     context_object_name = 'event'

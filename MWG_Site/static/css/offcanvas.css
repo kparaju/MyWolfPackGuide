@@ -136,14 +136,27 @@ footer {
   border-top: solid 1px #ccc;
 }
 
+.user-stat-bar > div a{
+  color: black;
+}
+
 .user-stat-bar > div:hover {
   background: #cc0000;
   color: white;
+}
+.user-stat-bar > div:hover a{
+  color: white;
+  text-decoration: none;
 }
 .user-stat-bar > div.selected {
   background: #cc0000;
   color: white;
 }
+
+.user-stat-bar > div.selected a{
+  color: white;
+}
+
 .user-stat-bar-stat {
   font-weight: normal;
   font-size: 1.8em;

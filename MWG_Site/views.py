@@ -49,7 +49,7 @@ class Dashboard(BaseView, View):
 
         user = self.request.user
         context['mwguser'] = MWGUser.objects.get(user=user)
-        context['dash_events']  = Event.objects.all()
+        context['dash_events']  = Event.objects.filter(time__gte=datetime.datetime.now())
         context['page'] = 'create'
         return context
 

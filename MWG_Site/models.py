@@ -10,7 +10,7 @@ fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
 class MWGUser(models.Model):
     user       = models.OneToOneField(User)
-    picture    = models.ImageField(_(u'picture'), upload_to='users', db_column='picture', blank=True, null=True)
+    picture    = models.ImageField(_(u'picture'), upload_to='users', db_column='picture', storage=fs, blank=True, null=True)
 
     class Meta:
         verbose_name        = 'MyWolfpackGuide User'
@@ -72,7 +72,7 @@ class Address(models.Model):
 
 class Event(models.Model):
     name        = models.CharField(max_length=100, null=True)
-    picture     = models.ImageField(_(u'picture'), upload_to='events', db_column='picture', blank=True, null=True)
+    picture     = models.ImageField(_(u'picture'), upload_to='events', db_column='picture', storage=fs, blank=True, null=True)
     description = models.CharField(max_length=500, null=True)
     price       = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     time        = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)

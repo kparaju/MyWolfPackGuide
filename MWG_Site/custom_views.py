@@ -1,5 +1,4 @@
-from django.views.generic.base import TemplateResponseMixin
-from django.views.generic.edit import FormMixin, ProcessFormView
+from django.views.generic.edit import FormMixin
  
  
 class MultipleFormsMixin(FormMixin):
@@ -21,33 +20,3 @@ class MultipleFormsMixin(FormMixin):
  
     def forms_invalid(self, forms):
         return self.render_to_response(self.get_context_data(forms=forms))
- 
- 
-class ProcessMultipleFormsView(ProcessFormView):
-    """
-    A mixin that processes multiple forms on POST. Every form must be
-    valid.
-    """
-    def get(self, request, *args, **kwargs):
-        form_classes = self.get_form_classes()
-        forms = self.get_forms(form_classes)
-        return self.render_to_response(self.get_context_data(forms=forms))
- 
-    def post(self, request, *args, **kwargs):
-        form_classes = self.get_form_classes()
-        forms = self.get_forms(form_classes)
-        if all([form.is_valid() for form in forms.values()]):
-            return self.forms_valid(forms)
-        else:
-            return self.forms_invalid(forms)
- 
- 
-class BaseMultipleFormsView(MultipleFormsMixin, ProcessMultipleFormsView):
-    """
-    A base view for displaying several forms.
-    """
- 
-class MultipleFormsView(TemplateResponseMixin, BaseMultipleFormsView):
-    """
-    A view for displaing several forms, and rendering a template response.
-    """

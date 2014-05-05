@@ -16,7 +16,7 @@
         <h1>Create an Event</h1>
       </div>
 
-      <form action="{% url 'create-event' %}" method="post" role="form">
+      <form action="{% url 'create-event' %}" method="post" role="form" enctype="multipart/form-data">
         {% csrf_token %}
 
         <!-- Begin Event Form -->

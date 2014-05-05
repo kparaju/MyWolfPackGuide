@@ -95,18 +95,19 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
             event_form = forms.get('event_form').instance
 
             # Adapt time to timezone
-            time = timezone.make_aware(event_form.time, timezone.get_current_timezone())
+            # time = timezone.make_aware(event_form.time, timezone.get_current_timezone())
 
             #Save Event Object with user, address, and time
             event = Event.objects.create (
                 name=event_form.name,
                 description=event_form.description,
                 price=event_form.price,
-                picture = event_form.picture,
-                time=time,
+                picture=request.FILES.get('picture'),
+                time=event_form.time,
                 address=address,
                 created_by=mwg_user,
             )
+
 
             # Save the Event Object
             event.save()

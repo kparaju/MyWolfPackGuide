@@ -15,6 +15,24 @@ def home(request):
         return redirect(reverse('browse-events'))
     return render(request, 'landing.html')
 
+class AttendEvent(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        mwguser = MWGUser.objects.get(user=user)
+        event = Event.objects.get(pk=kwargs['pk'])
+        event.attendees.add(mwguser)
+        return HttpResponseRedirect(reverse('event-details', kwargs={'pk': kwargs['pk']}))
+
+class UnAttendEvent(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        mwguser = MWGUser.objects.get(user=user)
+        event = Event.objects.get(pk=kwargs['pk'])
+        event.attendees.remove(mwguser)
+        return HttpResponseRedirect(reverse('event-details', kwargs={'pk': kwargs['pk']}))
+
 
 class Login(TemplateView):
     template_name = "landing.html"
@@ -38,6 +56,7 @@ class BaseView(View):
             week.append({day:events})
 
         context['week'] = week
+        context['mwguser'] = MWGUser.objects.get(user=self.request.user)
         return context
 
 

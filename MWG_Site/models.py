@@ -93,5 +93,11 @@ class Event(models.Model):
     def get_absolute_url(self):
         return reverse('event-details', kwargs={'pk': self.pk})
 
+    def get_attend_url(self):
+        return reverse('attend-event', kwargs={'pk': self.pk})
+
+    def get_unattend_url(self):
+        return reverse('unattend-event', kwargs={'pk': self.pk})
+
 
 

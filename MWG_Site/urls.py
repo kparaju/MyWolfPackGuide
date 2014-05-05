@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     url(r'^events/browse/$', login_required(views.BrowseEvents.as_view()), name='browse-events'),
     url(r'^events/me/$', login_required(views.MyEvents.as_view()), name='my-events'),
     url(r'^events/create/$', login_required(views.CreateEvent.as_view()), name='create-event'),
+    url(r'^events/attend/(?P<pk>\w+)', login_required(views.AttendEvent.as_view()), name='attend-event'),
+    url(r'^events/unattend/(?P<pk>\w+)', login_required(views.UnAttendEvent.as_view()), name='unattend-event'),
     url(r'^events/details/(?P<pk>\w+)', login_required(views.EventDetails.as_view()), name='event-details'),
 )
 

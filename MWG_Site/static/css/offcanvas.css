@@ -292,6 +292,30 @@ footer {
   box-shadow:0 0 15px #555;
 }
 
+.user-list-profile {
+  display:inline-block;
+  /*border: 1px solid #71B0E4;
+  border-radius: 5px;*/
+  padding: 3px 4px;
+  margin: 5px 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.user-list-profile:hover img {
+  box-shadow:0 0 15px #A49EA2;
+}
+.user-list-profile:hover {
+  color: #555;
+}
+
+.user-list-profile .user-list-profile-name {
+  font-size: 1.1em;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 #carousel-item {
   width: 100%;
 }
+

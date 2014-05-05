@@ -69,6 +69,12 @@ class Address(models.Model):
     def __unicode__(self):
         return unicode("{} {}, {}, {}".format(self.line_1, self.line_2, self.city, self.state_abbrev))
 
+class Tag(models.Model):
+    name        = models.CharField(max_length=35, null=True, blank=True)
+
+    def __unicode__(self):
+        return unicode(self.name)
+
 
 class Event(models.Model):
     name        = models.CharField(max_length=100, null=True)
@@ -78,7 +84,8 @@ class Event(models.Model):
     time        = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     address     = models.ForeignKey(Address)
     created_by  = models.ForeignKey(MWGUser)
-    attendees   = models.ManyToManyField(MWGUser, related_name='+')
+    tags        = models.ManyToManyField(Tag, related_name="events")
+    attendees   = models.ManyToManyField(MWGUser, related_name='+', blank=True, null=True)
 
     def __unicode__(self):
         return unicode(self.name)

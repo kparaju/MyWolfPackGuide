@@ -15,7 +15,6 @@
       <div class="page-header">
         <h1>Create an Event</h1>
       </div>
-
       <form action="{% url 'create-event' %}" method="post" role="form" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -26,6 +25,9 @@
           </div>
           <div class="panel-body">
             {{ forms.event_form|bootstrap }}
+            {{ forms.tag_form.existing_tag|bootstrap }}
+            <h5>-OR-</h5>
+            {{ forms.tag_form.new_tag|bootstrap }}
           </div>
         </div>
         <!-- END Event Form -->

@@ -4,12 +4,11 @@ from MWG_Site.custom_views import MultipleFormsMixin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from MWG_Site.forms import EventForm, AddressForm
+from MWG_Site.forms import EventForm, AddressForm, TagForm
 import datetime
-from django.utils import timezone
 from social_auth.middleware import SocialAuthExceptionMiddleware
 from social_auth.exceptions import AuthFailed, AuthCanceled
-from MWG_Site.models import Event, Address, MWGUser
+from MWG_Site.models import Event, Address, MWGUser, Tag
 
 def home(request):
     if request.user and request.user.is_authenticated():
@@ -61,6 +60,7 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
     form_classes = {
         'event_form': EventForm,
         'address_form': AddressForm,
+        'tag_form':TagForm,
     }
 
     def get(self, request, *args, **kwargs):
@@ -71,47 +71,44 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
     def post(self, request, *args, **kwargs):
         form_classes = self.get_form_classes()
         forms = self.get_forms(form_classes)
-        
-        print dir(forms.get('address_form').instance)
 
         if all([form.is_valid() for form in forms.values()]):
-
 
             # Get User Object
             mwg_user = MWGUser.objects.get(user=self.request.user)
 
             # Save the Address Form
-            address_form = forms.get('address_form').instance
+            address_form = forms.get('address_form')
 
             address, created = Address.objects.get_or_create(
-                line_1=address_form.line_1,
-                line_2=address_form.line_2,
-                city=address_form.city,
-                state_abbrev=address_form.state_abbrev,
-                zipcode=address_form.zipcode,
+                line_1=address_form.cleaned_data['line_1'],
+                line_2=address_form.cleaned_data['line_2'],
+                city=address_form.cleaned_data['city'],
+                state_abbrev=address_form.cleaned_data['state_abbrev'],
+                zipcode=address_form.cleaned_data['zipcode'],
             )
+
+            # Get or Create Tag for Event
+            tag_form = forms.get('tag_form')
+            if tag_form.cleaned_data['existing_tag']:
+                tag = tag_form.cleaned_data['existing_tag']
+            else:
+                tag = tag_form.cleaned_data['new_tag']
+
+            event_tag, create = Tag.objects.get_or_create(
+                name    = tag
+                )
 
             # Get the values from the Event Form
-            event_form = forms.get('event_form').instance
-
-            # Adapt time to timezone
-            # time = timezone.make_aware(event_form.time, timezone.get_current_timezone())
-
-            #Save Event Object with user, address, and time
-            event = Event.objects.create (
-                name=event_form.name,
-                description=event_form.description,
-                price=event_form.price,
-                picture=request.FILES.get('picture'),
-                time=event_form.time,
-                address=address,
-                created_by=mwg_user,
-            )
-
-
-            # Save the Event Object
+            event = forms.get('event_form').instance
+            event.address = address
+            event.created_by=mwg_user
             event.save()
 
+            event.tags.add(event_tag)
+            event.save()
+
+            # Redirect to the Event Details Page
             return HttpResponseRedirect(reverse('event-details', kwargs={'pk':event.pk}))
         else:
             return self.forms_invalid(forms)

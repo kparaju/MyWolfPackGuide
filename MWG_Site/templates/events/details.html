@@ -53,11 +53,12 @@
 
           <div class="row">
             <div class="col-8 col-sm-8 col-lg-8" >
-              <h2>Description</h2>
-              <p>
+              <h2>Description</h2>              <p>
                 {{event.description}}
               </p>
               <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+
+
             </div><!--/span-->
 
             <div class="col-4 col-sm-4 col-lg-4">
@@ -67,12 +68,28 @@
                 <b>Address: </b> {{event.address.get_address}}<br /> 
                 <b>Date/Time:</b> <date>{{event.time}}</date> <br /> 
               </p>
+
               <!-- 
               <p>Event created by: {{event.created_by.name}} </p>
               -->
             </div><!--/span-->
 
+            <div class="col-12 col-sm-12 col-lg-12" >
+              
+              <hr />
+
+                <h2>Users Attending</h2>
+                <div class="users-list">
+                  {% for attendee in event.attendees.all %}
+                  <div class="user-list-profile">
+                    {{attendee.name}}
+                  </div>
+                  {% endfor %}
+                </div>
+            </div>
+
           </div><!--/row-->
+
 
 {% endblock %}
 

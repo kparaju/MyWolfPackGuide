@@ -46,6 +46,15 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'MWG_Site', ['Event'])
 
+        # Adding M2M table for field attendees on 'Event'
+        m2m_table_name = db.shorten_name(u'MWG_Site_event_attendees')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('event', models.ForeignKey(orm[u'MWG_Site.event'], null=False)),
+            ('mwguser', models.ForeignKey(orm[u'MWG_Site.mwguser'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['event_id', 'mwguser_id'])
+
 
     def backwards(self, orm):
         # Deleting model 'MWGUser'
@@ -59,6 +68,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Event'
         db.delete_table(u'MWG_Site_event')
+
+        # Removing M2M table for field attendees on 'Event'
+        db.delete_table(db.shorten_name(u'MWG_Site_event_attendees'))
 
 
     models = {
@@ -74,6 +86,7 @@ class Migration(SchemaMigration):
         u'MWG_Site.event': {
             'Meta': {'object_name': 'Event'},
             'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MWG_Site.Address']"}),
+            'attendees': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'+'", 'symmetrical': 'False', 'to': u"orm['MWG_Site.MWGUser']"}),
             'created_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MWG_Site.MWGUser']"}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),

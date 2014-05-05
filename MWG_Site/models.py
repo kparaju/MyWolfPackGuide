@@ -78,6 +78,7 @@ class Event(models.Model):
     time        = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     address     = models.ForeignKey(Address)
     created_by  = models.ForeignKey(MWGUser)
+    attendees   = models.ManyToManyField(MWGUser, related_name='+')
 
     def __unicode__(self):
         return unicode(self.name)

@@ -291,3 +291,7 @@ footer {
 .event-list-item:hover .browse-events-picture {
   box-shadow:0 0 15px #555;
 }
+
+#carousel-item {
+  width: 100%;
+}

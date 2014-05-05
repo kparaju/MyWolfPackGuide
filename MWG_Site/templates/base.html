@@ -21,12 +21,19 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{% static 'css/offcanvas.css' %}" rel="stylesheet">
+    <!-- Load owl carousel-->
+    <link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.theme.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.transitions.css' %}" rel="stylesheet">
 
     {% block head_css %}{% endblock head_css %}
 
     <!-- Load JQuery from Google's CDN, and BootstrapCDN -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <!-- Load owl carousel js -->
+    <script src="{% static 'js/owl.carousel.js' %}"></script>
     
     {% block head_js %}{% endblock head_js %}
 

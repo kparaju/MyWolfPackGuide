@@ -13,10 +13,34 @@
 	        		<span id="name">{{ mwguser.name }}</span>
 	        	</div>
 	        	<br />
+	        	<script>
+	        		$(document).ready(function(){
+	        			$.expr[":"].contains = $.expr.createPseudo(function(arg) {
+						    return function( elem ) {
+						        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+						    };
+						});
+
+	        			$(".user-stat-bar > div").click(function(e){
+	        				var target = e.currentTarget;
+	        				window.location.href = $("a", target).attr('href');
+	        			});
+
+	        			$(".search-for-events > input[type=search]").keyup(function(){
+	        				var text = $(".search-for-events > input[type=search]").val();
+			   				$(".event-list-item-wrapper:contains(" + text + ")").removeClass('hidden');
+			   				$(".event-list-item-wrapper:not(:contains(" + text + "))").addClass('hidden');
+	        			});
+
+			            $(".event-list-item-wrapper .event-list-item").click(function(e){
+			                window.location.href = $(e.currentTarget).attr('href');
+			            })
+	        		});
+	        	</script>
 	        	<div class="user-stat-bar row">
-	        		<div class="col-md-3 selected"><a href="{% url 'browse-events'%}">Browse<br /><span class="user-stat-bar-stat">{{ dash_events|length }}</span></a></div>
-	        		<div class="col-md-3"><a href="{% url 'my-events'%}">My Events<br /><span class="user-stat-bar-stat">{{ mwguser.events|length }}</span></a></div>
-	        		<div class="col-md-3"><a href="{% url 'create-event' %}">Create<br /><span class="user-stat-bar-stat glyphicon glyphicon-plus"></span></a></div>
+	        		<div class="col-md-3 {% if page == 'browse' %}selected{% endif %}"><a href="{% url 'browse-events'%}">Browse<br /><span class="user-stat-bar-stat">{{ dash_events|length }}</span></a></div>
+	        		<div class="col-md-3 {% if page == 'me' %}selected{% endif %}"><a href="{% url 'my-events'%}">My Events<br /><span class="user-stat-bar-stat">{{ mwguser.events|length }}</span></a></div>
+	        		<div class="col-md-3 {% if page == 'create' %}selected{% endif %}"><a href="{% url 'create-event' %}">Create<br /><span class="user-stat-bar-stat glyphicon glyphicon-plus"></span></a></div>
 	        	</div>
 	        </div>
 

@@ -1,61 +1,36 @@
 {% extends 'dashboard.html' %}
-
+{% load humanize %}
 {% block dashboard_content %}
 		<form class="form-search">
-		  <div class="input-group">
+		  <div class="input-group search-for-events">
 		      <input type="search" class="form-control " placeholder="Search For Events...">
 		      <span class="input-group-btn">
-		          <button type="submit" class="btn btn-danger">Search</button>
+		          <a class="btn btn-danger">Search</a>
 		      </span>
 		  </div>
 		</form>
 
 		<br />
 		<br />
-		
-    	<div class="row">
-    		<div class="col-md-3">
-    			<div class="event-list-item">
-                    <div class="center">
-                        <img src="http://placekitten.com/190/100" />
-                    </div>
-    				<h4>Lorem at ipsum ipsum</h4>
-    				<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper mi quis adipiscing dapibus. Donec sit amet</span>
-                </div><!-- End Listing-->
-    		</div>
+        
+		<div class="row">
+            {% for event in events%}
+                <div class="col-md-3 event-list-item-wrapper">
+                    <div class="event-list-item" href="{{event.get_absolute_url}}">
+                        <div class="center">
+                            <div class="browse-events-picture" 
+                            style="background-image: url({{ event.picture.url }})"> 
+                            </div>
+                        </div>
+                        <div class="event-list-item-name">{{event.name}}</div>
+                        <date title="{{event.time}}">{{event.time|naturaltime}}</date>
+                        <div class="event-list-item-desc">{{event.description | truncatechars:120}}</div>
+                        <div class="event-list-item-desc-nontrunc hidden">{{event.description}}</div>
+                    </div><!-- End Listing-->
+                </div>
+            {% endfor %}
+        </div>
+        
 
-            <div class="col-md-3">
-                <div class="event-list-item">
-                    <div class="center">
-                        <img src="http://placekitten.com/190/101" />
-                    </div>
-                    <h4>FooBar</h4>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper mi quis adipiscing dapibus. Donec sit amet</span>
-                </div><!-- End Listing-->
-            </div>
-
-            <div class="col-md-3">
-                <div class="event-list-item">
-                    <div class="center">
-                        <img src="http://placekitten.com/190/99" />
-                    </div>
-                    <h4>FooBar</h4>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper mi quis adipiscing dapibus. Donec sit amet</span>
-                </div><!-- End Listing-->
-            </div>
-
-            <div class="col-md-3">
-                <div class="event-list-item">
-                    <div class="center">
-                        <img src="http://placekitten.com/190/100" />
-                    </div>
-                    <h4>FooBar</h4>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper mi quis adipiscing dapibus. Donec sit amet</span>
-                </div><!-- End Listing-->
-            </div>
-
-
-
-
-    	</div>
+    	
 {% endblock %} 

@@ -1,0 +1,52 @@
+[
+   {
+      "pk":1,
+      "model":"MWG_Site.address",
+      "fields":{
+         "line_1":"890 Oval Drive",
+         "city":"Raleigh",
+         "state_abbrev":"NC",
+         "line_2":"",
+         "zipcode":"27606"
+      }
+   },
+   {
+      "pk":1,
+      "model":"MWG_Site.event",
+      "fields":{
+         "_picture":"events/FB_IMG_13934650201658349.jpg",
+         "name":"The Trend of Life in a Foreign Land ",
+         "price":"1.07",
+         "address":1,
+         "created_by":2,
+         "time":"2014-05-04T18:46:45Z",
+         "description":"Sed fermentum mattis dolor sed tempor. Quisque venenatis ullamcorper eros. Pellentesque neque libero, consectetur ut risus eu, congue fringilla turpis. Etiam blandit ullamcorper leo a aliquam. Nullam semper quam orci, vel viverra dui suscipit sed. Donec pellentesque lacus ante, non auctor est aliquam quis. Vestibulum at orci dictum, blandit lacus non, posuere nisl."
+      }
+   },
+   {
+      "pk":2,
+      "model":"MWG_Site.event",
+      "fields":{
+         "_picture":"events/20140308_HuntLibrary.jpg",
+         "name":"The Race 4 Change",
+         "price":"10",
+         "address":1,
+         "created_by":2,
+         "time":"2014-05-05T18:47:13Z",
+         "description":"Sed sodales massa non nibh ornare fringilla. Cras accumsan diam tellus, sit amet mattis ligula accumsan at. Duis tempor dolor et est varius lobortis. Morbi malesuada dapibus dictum. Ut erat nisi, aliquet sit amet sodales id, placerat in libero. Quisque eu viverra orci. Morbi facilisis non enim non elementum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In faucibus felis interdum, volutpat quam et, porttitor arcu. Curabitur tortor orci, dapibus ut nisl."
+      }
+   },
+   {
+      "pk":3,
+      "model":"MWG_Site.event",
+      "fields":{
+         "_picture":"events/BmKv0J9CIAEBCbE.png",
+         "name":"Crafts Center Summer Class Registration",
+         "price":"60",
+         "address":1,
+         "created_by":2,
+         "time":"2014-05-04T18:47:48Z",
+         "description":"Duis hendrerit leo elit, eu porta augue suscipit volutpat. Suspendisse tristique magna in nisi gravida placerat. Aenean egestas viverra quam quis ornare. Vestibulum sit amet accumsan felis, id adipiscing velit. Nulla rhoncus pellentesque velit, pellentesque euismod ipsum porttitor eget. Suspendisse sed justo lobortis purus sollicitudin volutpat eu sit amet tellus. Donec in nisl et diam sodales aliquam. Etiam non rhoncus orci. Vestibulum est diam, laoreet id enim et, pulvinar sollicitudin felis. "
+      }
+  }
+]

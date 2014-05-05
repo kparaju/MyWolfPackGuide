@@ -134,6 +134,7 @@ footer {
   font-weight: bold;
   text-transform: uppercase;
   border-top: solid 1px #ccc;
+  height: 76px;
 }
 
 .user-stat-bar > div a{
@@ -165,6 +166,13 @@ footer {
 
 .user-stat-bar > div:hover .user-stat-bar-stat, .user-stat-bar > div.selected .user-stat-bar-stat {
   color: white;
+}
+
+.browse-events-picture{
+  width:190px; 
+  height:100px; 
+  background-color: #cc0000; 
+  background-size: cover; 
 }
 
 /*
@@ -246,3 +254,40 @@ footer {
 
 .panel-collapse div.list-group div.list-group{margin: 0;}
 .panel-collapse div.list-group .list-group a.list-group-item {border-top: 1px solid #ddd;border-bottom: 0;padding-left: 30px;}
+
+.list-group-item-selected {
+  background: #ddd;
+}
+
+.event-list-item-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.event-list-item date {
+  font-style: italic;
+  color: #666;
+}
+
+.event-list-item-desc {
+  margin-top: 12px;
+}
+
+.event-list-item {
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.event-list-item:hover .event-list-item-name{
+}
+
+.browse-events-picture {
+  margin-bottom: 10px;
+}
+
+.event-list-item:hover .browse-events-picture {
+  box-shadow:0 0 15px #555;
+}

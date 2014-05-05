@@ -67,15 +67,11 @@
                 <b>Address: </b> {{event.address.get_address}}<br /> 
                 <b>Date/Time:</b> <date>{{event.time}}</date> <br /> 
               </p>
-              <p><a class="btn btn-primary" href="#" role="button">Purchase &raquo;</a>
-              <a class="btn btn-info" href="#" role="button">Website &raquo;</a></p>
+              <!-- 
+              <p>Event created by: {{event.created_by.name}} </p>
+              -->
             </div><!--/span-->
 
-            <div class="col-12 col-sm-12 col-lg-12" >
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div><!--/span-->
           </div><!--/row-->
 
 {% endblock %}

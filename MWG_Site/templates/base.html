@@ -65,7 +65,7 @@
             <span class="icon-bar"></span>
           </button>
           <img src="{% static 'img/Logo_Small.png' %}" width="50" height="50" style="float:left;"/>
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="{% url 'home' %}">
             &nbsp;&nbsp;MyWolfPackGuide
           </a>
         </div>
@@ -111,7 +111,7 @@
                       <a class="calendar-day" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                         <date>{{ day|naturalday|title }}</date>
                       </a>
-                      <span class="badge">
+                      <span class="badge {% if day_events|length > 0 %}alert-success{% endif %}">
                         {{ day_events|length }}
                       </span>
                     </h4>

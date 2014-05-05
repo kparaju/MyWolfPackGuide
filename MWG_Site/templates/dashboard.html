@@ -20,7 +20,7 @@
 						        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
 						    };
 						});
-						
+
 	        			$(".user-stat-bar > div").click(function(e){
 	        				var target = e.currentTarget;
 	        				window.location.href = $("a", target).attr('href');
@@ -31,6 +31,10 @@
 			   				$(".event-list-item-wrapper:contains(" + text + ")").removeClass('hidden');
 			   				$(".event-list-item-wrapper:not(:contains(" + text + "))").addClass('hidden');
 	        			});
+
+			            $(".event-list-item-wrapper .event-list-item").click(function(e){
+			                window.location.href = $(e.currentTarget).attr('href');
+			            })
 	        		});
 	        	</script>
 	        	<div class="user-stat-bar row">

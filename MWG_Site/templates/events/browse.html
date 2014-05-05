@@ -9,16 +9,10 @@
 		      </span>
 		  </div>
 		</form>
-        <script>
-        $(document).ready(function(){
-            $(".event-list-item").click(function(e){
-                window.location.href = $(e.currentTarget).attr('href');
-            })
-        });
-        </script>
 
 		<br />
 		<br />
+        
 		<div class="row">
             {% for event in events%}
                 <div class="col-md-3 event-list-item-wrapper">

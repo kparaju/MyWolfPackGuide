@@ -15,9 +15,21 @@
 	        	<br />
 	        	<script>
 	        		$(document).ready(function(){
+	        			$.expr[":"].contains = $.expr.createPseudo(function(arg) {
+						    return function( elem ) {
+						        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+						    };
+						});
+						
 	        			$(".user-stat-bar > div").click(function(e){
 	        				var target = e.currentTarget;
 	        				window.location.href = $("a", target).attr('href');
+	        			});
+
+	        			$(".search-for-events > input[type=search]").keyup(function(){
+	        				var text = $(".search-for-events > input[type=search]").val();
+			   				$(".event-list-item-wrapper:contains(" + text + ")").removeClass('hidden');
+			   				$(".event-list-item-wrapper:not(:contains(" + text + "))").addClass('hidden');
 	        			});
 	        		});
 	        	</script>

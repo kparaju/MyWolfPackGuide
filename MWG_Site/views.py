@@ -78,7 +78,7 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
 
 
             # Get User Object
-            user = self.request.user
+            mwg_user = MWGUser.objects.get(user=self.request.user)
 
             # Save the Address Form
             address_form = forms.get('address_form').instance
@@ -105,7 +105,7 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
                 picture = event_form.picture,
                 time=time,
                 address=address,
-                created_by=user,
+                created_by=mwg_user,
             )
 
             # Save the Event Object

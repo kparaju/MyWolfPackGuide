@@ -18,8 +18,10 @@
                 <div class="col-md-3 event-list-item-wrapper">
                     <div class="event-list-item" href="{{event.get_absolute_url}}">
                         <div class="center">
-                            <div class="browse-events-picture" 
-                            style="background-image: url({{ event.picture.url }})"> 
+                            <div class="browse-events-picture"
+                            {% if event.picture %}
+                            style="background-image: url({{ event.picture.url }})"
+                            {% endif %}>
                             </div>
                         </div>
                         <div class="event-list-item-name">{{event.name}}</div>

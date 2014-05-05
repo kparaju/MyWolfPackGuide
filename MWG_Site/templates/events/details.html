@@ -44,7 +44,7 @@
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
           {% load static %}
-          <div class="jumbotron name-and-background" style="background-color: #cc0000; background-image: url({{ event.picture.url }})"> 
+          <div class="jumbotron name-and-background" style="background-color: #cc0000; {% if event.picture %} background-image: url({{ event.picture.url }}); {% endif %}"> 
             <h1>{{event.name}}</h1>
           </div>
 

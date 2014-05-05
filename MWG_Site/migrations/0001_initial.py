@@ -42,7 +42,7 @@ class Migration(SchemaMigration):
             ('price', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=5, decimal_places=2, blank=True)),
             ('time', self.gf('django.db.models.fields.DateTimeField')(null=True)),
             ('address', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['MWG_Site.Address'])),
-            ('created_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('created_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['MWG_Site.MWGUser'])),
         ))
         db.send_create_signal(u'MWG_Site', ['Event'])
 
@@ -74,7 +74,7 @@ class Migration(SchemaMigration):
         u'MWG_Site.event': {
             'Meta': {'object_name': 'Event'},
             'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MWG_Site.Address']"}),
-            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'created_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MWG_Site.MWGUser']"}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),

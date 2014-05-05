@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'MWG_Site_mwguser', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('_picture', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, db_column='picture', blank=True)),
+            ('picture', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, db_column='picture', blank=True)),
         ))
         db.send_create_signal(u'MWG_Site', ['MWGUser'])
 
@@ -37,7 +37,7 @@ class Migration(SchemaMigration):
         db.create_table(u'MWG_Site_event', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100, null=True)),
-            ('_picture', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, db_column='picture', blank=True)),
+            ('picture', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, db_column='picture', blank=True)),
             ('description', self.gf('django.db.models.fields.CharField')(max_length=500, null=True)),
             ('price', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=5, decimal_places=2, blank=True)),
             ('time', self.gf('django.db.models.fields.DateTimeField')(null=True)),
@@ -73,12 +73,12 @@ class Migration(SchemaMigration):
         },
         u'MWG_Site.event': {
             'Meta': {'object_name': 'Event'},
-            '_picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'db_column': "'picture'", 'blank': 'True'}),
             'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MWG_Site.Address']"}),
             'created_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
+            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'db_column': "'picture'", 'blank': 'True'}),
             'price': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '5', 'decimal_places': '2', 'blank': 'True'}),
             'time': ('django.db.models.fields.DateTimeField', [], {'null': 'True'})
         },
@@ -88,8 +88,8 @@ class Migration(SchemaMigration):
         },
         u'MWG_Site.mwguser': {
             'Meta': {'object_name': 'MWGUser'},
-            '_picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'db_column': "'picture'", 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'db_column': "'picture'", 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         },
         u'auth.group': {

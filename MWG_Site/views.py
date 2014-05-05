@@ -9,7 +9,7 @@ import datetime
 from django.utils import timezone
 from social_auth.middleware import SocialAuthExceptionMiddleware
 from social_auth.exceptions import AuthFailed, AuthCanceled
-from MWG_Site.models import Event, MWGUser
+from MWG_Site.models import Event, Address, MWGUser
 
 def home(request):
     if request.user and request.user.is_authenticated():
@@ -80,8 +80,15 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
             user = self.request.user
 
             # Save the Address Form
-            address = forms.get('address_form').instance
-            address.save()
+            address_form = forms.get('address_form').instance
+
+            address, created = Address.objects.get_or_create(
+                line_1=address_form.line_1,
+                line_2=address_form.line_2,
+                city=address_form.city,
+                state_abbrev=address_form.state_abbrev,
+                zipcode=address_form.zipcode,
+            )
 
             # Get the values from the Event Form
             event_form = forms.get('event_form').instance
@@ -92,9 +99,9 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
             #Save Event Object with user, address, and time
             event = Event.objects.create (
                 name=event_form.name,
-                _picture=event_form._picture,
                 description=event_form.description,
                 price=event_form.price,
+                picture = event_form.picture,
                 time=time,
                 address=address,
                 created_by=user,

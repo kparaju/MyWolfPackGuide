@@ -10,24 +10,10 @@ fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
 class MWGUser(models.Model):
     user       = models.OneToOneField(User)
-    _picture   = models.ImageField(_(u'picture'), upload_to='users', db_column='picture', blank=True, null=True)
-
-    def get_picture(self):
-        """
-        Gets the MWGUser's picture or the 'no image available' picture if
-        it doesn't exist.
-        """
-        if self._picture.name is None or len(self._picture.name) < 1 or not fs.exists(self._picture.name):
-            self._picture.name = 'no-user-image.png'
-        return self._picture
-
-    def set_picture(self, input):
-        self._picture = input
-
-    picture = property(get_picture, set_picture)
+    picture    = models.ImageField(_(u'picture'), upload_to='users', db_column='picture', blank=True, null=True)
 
     class Meta:
-        verbose_name = 'MyWolfpackGuide User'
+        verbose_name        = 'MyWolfpackGuide User'
         verbose_name_plural = 'MyWolfpackGuide Users'
 
     def __unicode__(self):
@@ -45,9 +31,11 @@ class MWGUser(models.Model):
     def is_admin(self):
         return MWGAdmin.objects.filter(user=self.user).exists()
 
+
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             MWGUser.objects.create(user=instance)
+            # new_user.picture = instance.social_auth.get(provider='google-oauth2').extra_data['picture'] 
 
     post_save.connect(create_user_profile, sender=User)
 
@@ -84,26 +72,12 @@ class Address(models.Model):
 
 class Event(models.Model):
     name        = models.CharField(max_length=100, null=True)
-    _picture    = models.ImageField(_(u'picture'), upload_to='events', db_column='picture', blank=True, null=True)
+    picture     = models.ImageField(_(u'picture'), upload_to='events', db_column='picture', blank=True, null=True)
     description = models.CharField(max_length=500, null=True)
     price       = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     time        = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     address     = models.ForeignKey(Address)
-    created_by  = models.ForeignKey(User)
-
-    def get_picture(self):
-        """
-        Gets the Event's picture or the 'no image available' picture if
-        it doesn't exist.
-        """
-        if self._picture.name is None or len(self._picture.name) < 1 or not fs.exists(self._picture.name):
-            self._picture.name = 'no-event-image.png' #Not currently implemented!!!
-        return self._picture
-
-    def set_picture(self, input):
-        self._picture = input
-
-    picture = property(get_picture, set_picture)
+    created_by  = models.ForeignKey(MWGUser)
 
     def __unicode__(self):
         return unicode(self.name)

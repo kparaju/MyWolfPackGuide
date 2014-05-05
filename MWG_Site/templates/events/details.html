@@ -69,20 +69,27 @@
                 <b>Date/Time:</b> <date>{{event.time}}</date> <br /> 
               </p>
 
-              <!-- 
-              <p>Event created by: {{event.created_by.name}} </p>
-              -->
+              <p>
+                {% if mwguser in event.attendees.all %}
+                <a class="btn btn-danger" href="{{event.get_unattend_url}}">
+                  <span class="glyphicon glyphicon-minus-sign"></span> Unattend Event
+                </a>
+                {% else %}
+                <a class="btn btn-success" href="{{event.get_attend_url}}">
+                  <span class="glyphicon glyphicon-plus-sign"></span> Attend Event
+                </a>
+                {% endif %}
+              </p>
             </div><!--/span-->
 
             <div class="col-12 col-sm-12 col-lg-12" >
-              
-              <hr />
-
                 <h2>Users Attending</h2>
                 <div class="users-list">
+                  {% if event.attendees.all|length == 0 %}<em>No attendees yet. Be the first one!</em>{% endif %}
                   {% for attendee in event.attendees.all %}
                   <div class="user-list-profile">
-                    {{attendee.name}}
+                    <img src="http://placekitten.com/100/100" class="img-circle"> 
+                    <div class="user-list-profile-name">{{attendee.name}}</div>
                   </div>
                   {% endfor %}
                 </div>

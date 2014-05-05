@@ -14,12 +14,15 @@
 		<br />
 		
     	<div class="row">
+            <div id="owl-example" class="owl-carousel">
             {% for event in events%}
-                <div class="col-md-3 event-list-item-wrapper">
+                <div id="carousel-item" class="col-md-3 event-list-item-wrapper">
                     <div class="event-list-item" href="{{event.get_absolute_url}}">
                         <div class="center">
                             <div class="browse-events-picture" 
-                            style="background-image: url({{ event.picture.url }})"> 
+                            {% if event.picture %}
+                            style="background-image: url({{ event.picture.url }})"
+                            {% endif %}>
                             </div>
                         </div>
                         <div class="event-list-item-name">{{event.name}}</div>
@@ -29,5 +32,14 @@
                     </div><!-- End Listing-->
                 </div>
             {% endfor %}
+            </div>
     	</div>
 {% endblock %} 
+
+{% block body_js %}
+<script>
+    $(document).ready(function() {
+        $("#owl-example").owlCarousel();
+    });
+</script>
+{% endblock %}

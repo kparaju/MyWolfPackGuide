@@ -4,6 +4,7 @@ Pillow==2.4.0
 South==0.8.4
 argparse==1.2.1
 distribute==0.6.24
+django-admin-bootstrapped==1.6.4
 django-bootstrap-form==3.1
 django-bootstrap3-datetimepicker==2.2.3
 django-localflavor==1.0

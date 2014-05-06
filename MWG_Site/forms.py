@@ -34,7 +34,7 @@ class AddressForm(forms.ModelForm):
 
 
 class EventForm(forms.ModelForm):
-    time = forms.CharField(widget=DateTimePicker(options={"format": "YYYY-MM-DD HH:MM:SS"}))
+    time = forms.CharField(widget=DateTimePicker(options={"format": "YYYY-MM-DD HH:mm:SS"}))
     description = forms.CharField(widget=forms.Textarea())
 
     class Meta:

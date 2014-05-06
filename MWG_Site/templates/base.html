@@ -127,7 +127,7 @@
                 <div class="list-group hidden">
                   <a href="{{ day_event.get_absolute_url }}" class="list-group-item{% if day_event.id == event.id %} list-group-item-selected {% endif %}">
                     <h4 class="list-group-item-heading">{{ day_event.name|truncatechars:20 }}</h4>
-                    <p class="list-group-item-text">{{ day_event.description|truncatechars:64 }}</p>
+                    <p class="list-group-item-text">{{ day_event.get_nonhtml_description|truncatechars:64|safe }}</p>
                   </a>
                 </div>
                 {% endfor %}

@@ -36,7 +36,7 @@ class Migration(SchemaMigration):
         # Adding model 'Tag'
         db.create_table(u'MWG_Site_tag', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=35)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=35, null=True, blank=True)),
         ))
         db.send_create_signal(u'MWG_Site', ['Tag'])
 
@@ -108,7 +108,7 @@ class Migration(SchemaMigration):
         u'MWG_Site.event': {
             'Meta': {'object_name': 'Event'},
             'address': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MWG_Site.Address']"}),
-            'attendees': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'+'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['MWG_Site.MWGUser']"}),
+            'attendees': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'attending'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['MWG_Site.MWGUser']"}),
             'created_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['MWG_Site.MWGUser']"}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -131,7 +131,7 @@ class Migration(SchemaMigration):
         u'MWG_Site.tag': {
             'Meta': {'object_name': 'Tag'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '35'})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '35', 'null': 'True', 'blank': 'True'})
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},

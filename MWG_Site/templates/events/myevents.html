@@ -12,34 +12,39 @@
 
 		<br />
 		<br />
-		
-    	<div class="row">
-            <div id="owl-example" class="owl-carousel">
-                {% for event in events%}
-                    <div id="carousel-item" class="col-md-3 event-list-item-wrapper">
-                        <div class="event-list-item" href="{{event.get_absolute_url}}">
-                            <div class="center">
-                                <div class="browse-events-picture" 
-                                {% if event.picture %}
-                                style="background-image: url({{ event.picture.url }})"
-                                {% endif %}>
+
+        {% for datetime, eventList in times.items %}
+            <div class="row owl-carousel-wrapper">
+                <div><h3 class="carousel-title col-md-12"><em>{{ datetime }}</em></h3></div>
+                <div  class="owl-carousel">
+                    {% for event in eventList %}
+                        <div id="carousel-item" class="col-md-3 event-list-item-wrapper">
+                            <div class="event-list-item" href="{{event.get_absolute_url}}">
+                                <div class="center">
+                                    <div class="browse-events-picture"
+                                    {% if event.picture %}
+                                    style="background-image: url({{ event.picture.url }})"
+                                    {% endif %}>
+                                    </div>
                                 </div>
+                                <div class="event-list-item-name">{{event.name}}</div>
+                                <date title="{{event.time}}">{{event.time|naturaltime}}</date>
+                                <div class="event-list-item-desc">{{event.get_nonhtml_description | truncatechars:120|safe}}</div>
+                                <div class="event-list-item-desc-nontrunc hidden">{{event.description}} {{event.tags.all}} {{event.time}} {{event.address.get_address}} {{event.price}}</div>
                             </div>
-                            <div class="event-list-item-name">{{event.name}}</div>
-                            <date title="{{event.time}}">{{event.time|naturaltime}}</date>
-                            <div class="event-list-item-desc">{{event.description | truncatechars:120}}</div>
-                            <div class="event-list-item-desc-nontrunc hidden">{{event.description}}</div>
-                        </div><!-- End Listing-->
-                    </div>
-                {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-    	</div>
+        {% endfor %}
+
+
 {% endblock %} 
 
 {% block body_js %}
 <script>
     $(document).ready(function() {
-        $("#owl-example").owlCarousel();
+        $(".owl-carousel").owlCarousel();
     });
 </script>
 {% endblock %}

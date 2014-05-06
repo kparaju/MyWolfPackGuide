@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 from MyWolfpackGuide import settings
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
+import re
 
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
@@ -24,7 +25,7 @@ class MWGUser(models.Model):
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
     @property
-    def events(self):
+    def my_events(self):
         return Event.objects.filter(created_by=self.user)
 
     @property
@@ -64,7 +65,7 @@ class Address(models.Model):
 
     @property
     def get_address(self):
-        return "{} {}, {} {}, {}".format(self.line_1, self.line_2, self.city, self.zipcode, self.state_abbrev)
+        return "{}{}, {}, {} {}".format(self.line_1, self.line_2, self.city, self.state_abbrev, self.zipcode)
 
     def __unicode__(self):
         return unicode("{} {}, {}, {}".format(self.line_1, self.line_2, self.city, self.state_abbrev))
@@ -85,7 +86,7 @@ class Event(models.Model):
     address     = models.ForeignKey(Address)
     created_by  = models.ForeignKey(MWGUser)
     tags        = models.ManyToManyField(Tag, related_name="events")
-    attendees   = models.ManyToManyField(MWGUser, related_name='+', blank=True, null=True)
+    attendees   = models.ManyToManyField(MWGUser, related_name='attending', blank=True, null=True)
 
     def __unicode__(self):
         return unicode(self.name)
@@ -98,6 +99,9 @@ class Event(models.Model):
 
     def get_unattend_url(self):
         return reverse('unattend-event', kwargs={'pk': self.pk})
+
+    def get_nonhtml_description(self):
+        return re.sub('<[^<]+?>', '', self.description)
 
 
 

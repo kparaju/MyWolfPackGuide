@@ -52,7 +52,7 @@ class BaseView(View):
         week  = []
         for day in range(0,7):
             day = today + datetime.timedelta(days=day)
-            events = user.events.filter(time__range=(day, day+datetime.timedelta(days=1)))
+            events = user.attending.filter(time__range=(day, day+datetime.timedelta(days=1)))
             week.append({day:events})
 
         context['week'] = week
@@ -65,10 +65,12 @@ class Dashboard(BaseView, View):
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
 
-        user = self.request.user
-        context['mwguser'] = MWGUser.objects.get(user=user)
+        user = MWGUser.objects.get(user=self.request.user)
+        context['mwguser'] = user
+        context['my_events'] = user.my_events | user.attending.all()
         context['dash_events']  = Event.objects.filter(time__gte=datetime.datetime.now())
         context['page'] = 'create'
+        context['tags'] = Tag.objects.all()
         return context
 
 
@@ -148,9 +150,21 @@ class MyEvents(Dashboard, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MyEvents, self).get_context_data(**kwargs)
-
         user = MWGUser.objects.get(user=self.request.user)
-        context['events'] = user.events
+        events = user.my_events | user.attending.all()
+        events = events.order_by("time")
+
+        times = {}
+
+        for event in events:
+            foo = ' '.join([event.time.strftime("%B"), str(event.time.year)])
+            if not foo in times:
+                times[foo] = []
+            times[foo].append(event)
+
+        print times
+        context['times'] = times
+
         context['page'] = 'me'
         return context
 

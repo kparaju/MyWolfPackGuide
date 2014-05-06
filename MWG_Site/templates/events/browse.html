@@ -17,8 +17,10 @@
             {% if tag.events.all|length %}
     		<div class="row owl-carousel-wrapper">
                <div style="margin-left: 20px"><h3 class="carousel-title"><em>{{tag.name}}</em></h3></div>
+               <hr>
                 <div  class="owl-carousel">
                     {% for event in tag.events.all %}
+                        {% if event.time > now %}
                         <div id="carousel-item" class="col-md-3 event-list-item-wrapper">
                             <div class="event-list-item" href="{{event.get_absolute_url}}">
                                 <div class="center">
@@ -31,6 +33,7 @@
                                 <div class="event-list-item-desc-nontrunc hidden">{{event.description}} {{event.tags.all}} {{event.time}} {{event.address.get_address}} {{event.price}}</div>
                             </div><!-- End Listing-->
                         </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

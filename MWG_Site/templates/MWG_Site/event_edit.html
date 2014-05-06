@@ -15,7 +15,7 @@
       <div class="page-header">
         <h1>Edit "{{ object.name}}"</h1>
       </div>
-      <form action="{% url 'create-event' %}" method="post" role="form" enctype="multipart/form-data">
+      <form action="" method="post" role="form" enctype="multipart/form-data">
         {% csrf_token %}
 
         <!-- Begin Event Form -->
@@ -29,8 +29,8 @@
         <!-- END Event Form -->
 
         <div class="well well-lg">  
-          <button type="submit" class="btn btn-primary">Submit</button>  
-          <button type="button" class="btn btn-danger">Cancel</button>  
+          <input type="submit" value="Create" class="btn btn-primary"></input>
+          <a href="{%url 'browse-events' %}" class="btn btn-danger">Cancel</a>  
         </div>
 
       </form>

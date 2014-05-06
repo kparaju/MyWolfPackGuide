@@ -75,7 +75,8 @@ class Dashboard(BaseView, View):
 
         user = MWGUser.objects.get(user=self.request.user)
         context['mwguser'] = user
-        context['my_events'] = user.my_events | user.attending.all()
+        my_events = user.my_events | user.attending.all()
+        context['my_events'] = my_events.distinct()
         context['dash_events']  = Event.objects.filter(time__gte=datetime.datetime.now())
         context['page'] = 'create'
         context['tags'] = Tag.objects.all()
@@ -160,8 +161,8 @@ class MyEvents(Dashboard, TemplateView):
         context = super(MyEvents, self).get_context_data(**kwargs)
         user = MWGUser.objects.get(user=self.request.user)
         events = user.my_events | user.attending.all()
-        events = events.order_by("time")
-
+        events = events.order_by("time").distinct()
+        
         times = {}
 
         for event in events:

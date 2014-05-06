@@ -128,7 +128,7 @@
             <div class="col-4 col-sm-4 col-lg-4">
               <h2>Pricing &amp; Location</h2>
               <p>
-                <b>Price: </b> {% if event.price == 0 %} Free {% else %}${{event.price}} {% endif %}<br />
+                <b>Price: </b> {% if event.price == 0 or event.price == None %} Free {% else %}${{event.price}} {% endif %}<br />
                 <b>Address: </b> {{event.address.get_address}}<br /> 
                 <b>Date/Time:</b> <date>{{event.time}}</date> <br /> 
               </p>

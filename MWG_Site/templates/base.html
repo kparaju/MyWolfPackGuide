@@ -151,7 +151,9 @@
   {% block footer %}
     <div class="navbar">
         <div class="container">
+            {% if user.is_superuser %}
             <p style="float:left"><small><a class="btn btn-success btn-xs" href="{% url 'scrape' %}">Scrape University Calendars</a></small></p>
+            {% endif %}
             <p align="right"><small>Copyright &copy; All Rights Reserved.</small></p>
          </div>
     </div>

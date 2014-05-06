@@ -105,7 +105,7 @@
 
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle calendar</button>
           </p>
           {% load static %}
           <div class="jumbotron name-and-background" style="cursor: move; background-color: #cc0000; {% if event.picture %} background-image: url({{ event.picture.url }}); {% endif %}"> 
@@ -170,8 +170,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    
-    <!-- <script src="offcanvas.js"></script> -->
+    {% load static %}
+    <script src="{% static 'js/offcanvas.js' %}"></script>
 
 {% endblock %}
 

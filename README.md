@@ -12,9 +12,9 @@ To begin, clone the repository into a directory of your choice.
 
 Enter the project directory and create a virtual environment to manage the project's dependencies:
 
-> $ cd MyWolfpackGuide/
-> $ virtualenv [your_virtual_environment_name]
-> $ source [your_virtual_environment_name]/bin/activate
+> $ cd MyWolfpackGuide/ <br />
+> $ virtualenv [your_virtual_environment_name] <br />
+> $ source [your_virtual_environment_name]/bin/activate <br />
   
 Now install the requirements:
 

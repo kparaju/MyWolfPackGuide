@@ -15,7 +15,7 @@
 
         {% for datetime, eventList in times.items %}
             <div class="row owl-carousel-wrapper">
-                <div><h3 class="carousel-title col-md-12"><em>{{ datetime }}</em></h3></div>
+                <div><h3 class="carousel-title"><em>{{ datetime }}</em></h3></div>
                 <div  class="owl-carousel">
                     {% for event in eventList %}
                         <div id="carousel-item" class="col-md-3 event-list-item-wrapper">

@@ -15,7 +15,7 @@
         
         {% for tag in tags %}
     		<div class="row owl-carousel-wrapper">
-                <div><h3 class="carousel-title col-md-12"><em>{{tag.name}}</em></h3></div>
+                <div><h3 class="carousel-title"><em>{{tag.name}}</em></h3></div>
                 <div  class="owl-carousel">
                     {% for event in tag.events.all %}
                         <div id="carousel-item" class="col-md-3 event-list-item-wrapper">

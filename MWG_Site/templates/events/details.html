@@ -152,7 +152,7 @@
                   {% if event.attendees.all|length == 0 %}<em>No attendees yet. Be the first one!</em>{% endif %}
                   {% for attendee in event.attendees.all %}
                   <div class="user-list-profile">
-                    <img src="{% gravatar_url mwguser.user.email 100 %}" class="img-circle"> 
+                    <img src="{% gravatar_url attendee.user.email 100 %}" class="img-circle"> 
                     <div class="user-list-profile-name">{{attendee.name}}</div>
                   </div>
                   {% endfor %}

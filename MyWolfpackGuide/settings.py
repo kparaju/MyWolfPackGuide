@@ -91,6 +91,7 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bootstrap3_datetime',
     'MWG_Site',
+    'django_gravatar',
 )
 
 MIDDLEWARE_CLASSES = (

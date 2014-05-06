@@ -15,16 +15,13 @@
 
         {% for datetime, eventList in times.items %}
             <div class="row owl-carousel-wrapper">
-                <div><h3 class="carousel-title"><em>{{ datetime }}</em></h3></div>
+                <div style="margin-left: 20px"><h3 class="carousel-title"><em>{{ datetime }}</em></h3></div>
                 <div  class="owl-carousel">
                     {% for event in eventList %}
                         <div id="carousel-item" class="col-md-3 event-list-item-wrapper">
                             <div class="event-list-item" href="{{event.get_absolute_url}}">
                                 <div class="center">
-                                    <div class="browse-events-picture"
-                                    {% if event.picture %}
-                                    style="background-image: url({{ event.picture.url }})"
-                                    {% endif %}>
+                                    <div class="browse-events-picture" style="background-image: url({{ event.get_picture }})">
                                     </div>
                                 </div>
                                 <div class="event-list-item-name">{{event.name}}</div>

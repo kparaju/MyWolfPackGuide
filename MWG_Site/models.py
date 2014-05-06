@@ -6,6 +6,7 @@ from MyWolfpackGuide import settings
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 import re
+import random
 
 fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
@@ -102,6 +103,13 @@ class Event(models.Model):
 
     def get_nonhtml_description(self):
         return re.sub('<[^<]+?>', '', self.description)
+
+    def get_picture(self):
+        if self.picture:
+            return self.picture.url
+        else:
+            randomPic = random.choice(range(1, 12))
+            return '%s/img/default-%d.jpg' %(settings.STATIC_URL, randomPic)
 
 
 

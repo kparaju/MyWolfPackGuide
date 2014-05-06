@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load gravatar %}
 {% block title %}Event Details{% endblock %}
 
 {% block head_js %}
@@ -108,7 +108,7 @@
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle calendar</button>
           </p>
           {% load static %}
-          <div class="jumbotron name-and-background" style="cursor: move; background-color: #cc0000; {% if event.picture %} background-image: url({{ event.picture.url }}); {% endif %}"> 
+          <div class="jumbotron name-and-background" style="cursor: move; background-color: #cc0000; background-image: url({{ event.get_picture }});"> 
             <h1>{{event.name}}</h1>
           </div>
 
@@ -152,7 +152,7 @@
                   {% if event.attendees.all|length == 0 %}<em>No attendees yet. Be the first one!</em>{% endif %}
                   {% for attendee in event.attendees.all %}
                   <div class="user-list-profile">
-                    <img src="http://placekitten.com/100/100" class="img-circle"> 
+                    <img src="{% gravatar_url mwguser.user.email 100 %}" class="img-circle"> 
                     <div class="user-list-profile-name">{{attendee.name}}</div>
                   </div>
                   {% endfor %}

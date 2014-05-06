@@ -70,6 +70,7 @@ footer {
   .name-and-background {
     background-size: cover;
     background-position-y:50%;
+    text-shadow: 0 0 5px rgba(0,0,0,.55)
   }
 
   .name-and-background h1 {

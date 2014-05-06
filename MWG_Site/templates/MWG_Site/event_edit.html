@@ -1,0 +1,40 @@
+{% extends 'dashboard.html' %}
+{% load bootstrap %}
+
+{% block head_js %}
+  {{ forms.event_form.media }}
+{% endblock %}
+
+<!-- for more info on the format of this template
+  see http://django-bootstrap-form.readthedocs.org/en/latest/#usage -->
+{% block dashboard_content %}
+
+  <div class="row">
+    <div class="col-md-10 col-md-offset-0">
+
+      <div class="page-header">
+        <h1>Edit "{{ object.name}}"</h1>
+      </div>
+      <form action="{% url 'create-event' %}" method="post" role="form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Begin Event Form -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Event Details</h4>
+          </div>
+          <div class="panel-body">
+            {{ form|bootstrap }}
+        </div>
+        <!-- END Event Form -->
+
+        <div class="well well-lg">  
+          <button type="submit" class="btn btn-primary">Submit</button>  
+          <button type="button" class="btn btn-danger">Cancel</button>  
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

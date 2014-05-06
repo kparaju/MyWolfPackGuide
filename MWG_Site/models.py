@@ -52,7 +52,6 @@ class MWGAdmin(MWGUser):
         return unicode(self.name)
 
 
-
 class Address(models.Model):
     line_1       = models.CharField(max_length=100, null=True)
     line_2       = models.CharField(max_length=100, null=True, blank=True)

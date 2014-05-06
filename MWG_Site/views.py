@@ -1,9 +1,11 @@
 from django.views.generic import TemplateView, DetailView, View
 from django.views.generic.base import TemplateResponseMixin
+from django.views.generic.edit import UpdateView
+from django.template import RequestContext
 from MWG_Site.custom_views import MultipleFormsMixin
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from MWG_Site.forms import EventForm, AddressForm, TagForm
 import datetime
 from social_auth.middleware import SocialAuthExceptionMiddleware
@@ -94,6 +96,17 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
     }
 
     def get(self, request, *args, **kwargs):
+        # if Event.objects.filter(pk=kwargs['pk']).exists():
+        #     event = get_object_or_404(Event, pk=kwargs['pk'])
+        #     event_form = EventForm(initial={
+        #         # 'pk': event.pk, 
+        #         'name': event.name,
+        #         'picture':event.picture,
+        #         'description': event.description,
+        #         'price': event.price,
+        #         'time': event.time})
+        #     return render_to_response("events/edit.html", {'event_form': event_form}, context_instance=RequestContext(request))
+        # else:
         form_classes = self.get_form_classes()
         forms = self.get_forms(form_classes)
         return self.render_to_response(self.get_context_data(forms=forms))
@@ -143,6 +156,18 @@ class CreateEvent(Dashboard, TemplateResponseMixin, MultipleFormsMixin):
         else:
             return self.forms_invalid(forms)
 
+
+class UpdateEvent(Dashboard, UpdateView):
+    model  = Event
+    fields = ['name', 'picture', 'description', 'price', 'time', 'address', 'tags']
+    template_name_suffix = "_edit"
+
+class RemoveEvent(View):
+
+    def get(self, request, *args, **kwargs):
+        event = Event.objects.get(pk=kwargs['pk'])
+        event.delete()
+        return HttpResponseRedirect(reverse('my-events'))
 
 class BrowseEvents(Dashboard, TemplateView):
     template_name = "events/browse.html"

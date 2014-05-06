@@ -18,7 +18,8 @@ SETTINGS_DIR = os.path.realpath(os.path.join(__file__, "../"))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')$@a1jsh)w5&q9ovv_fo%x4*53-wk9x)y_uv247j@7@bkjox)u'
+# Generate a secret key string or file and place it in the field below
+# SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,8 +47,9 @@ SOCIAL_AUTH_PIPELINE = (
 SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
 
 # OAuth Key and Secret
-GOOGLE_OAUTH2_CLIENT_ID      = '735674581937-esocu94tj2vpi2i38gsgb22upglq2as5.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET  = '_blovGsNID0KLMs9JjTvi9jX'
+# Generate a Google-OAuth2 Client ID and Secret by registering your application at developers.google.com
+# GOOGLE_OAUTH2_CLIENT_ID      = ''
+# GOOGLE_OAUTH2_CLIENT_SECRET  = ''
 
 SOCIAL_AUTH_CREATE_USERS = True
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True

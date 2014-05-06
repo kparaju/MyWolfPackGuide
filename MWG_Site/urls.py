@@ -6,6 +6,7 @@ from MWG_Site import views
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
     url(r'^login/', views.Login.as_view(), name='login'),
+    url(r'^scrape/', views.Scrape.as_view(), name='scrape'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     url(r'^login-error/', views.LoginError.as_view(), name='login-error'),
     url(r'^events/browse/$', login_required(views.BrowseEvents.as_view()), name='browse-events'),
@@ -14,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^events/attend/(?P<pk>\w+)', login_required(views.AttendEvent.as_view()), name='attend-event'),
     url(r'^events/unattend/(?P<pk>\w+)', login_required(views.UnAttendEvent.as_view()), name='unattend-event'),
     url(r'^events/details/(?P<pk>\w+)', login_required(views.EventDetails.as_view()), name='event-details'),
+
 )
 
 ##### do not do this in production

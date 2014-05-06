@@ -9,6 +9,7 @@ import datetime
 from social_auth.middleware import SocialAuthExceptionMiddleware
 from social_auth.exceptions import AuthFailed, AuthCanceled
 from MWG_Site.models import Event, Address, MWGUser, Tag
+from tasks import scrape
 
 def home(request):
     if request.user and request.user.is_authenticated():
@@ -23,6 +24,13 @@ class AttendEvent(TemplateView):
         event = Event.objects.get(pk=kwargs['pk'])
         event.attendees.add(mwguser)
         return HttpResponseRedirect(reverse('event-details', kwargs={'pk': kwargs['pk']}))
+
+
+class Scrape(TemplateView):
+    def get(self, request, *args, **kwargs):
+        scrape()
+        return HttpResponseRedirect(reverse('browse-events'))
+
 
 class UnAttendEvent(TemplateView):
 

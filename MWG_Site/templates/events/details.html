@@ -143,6 +143,16 @@
                   <span class="glyphicon glyphicon-plus-sign"></span> Attend Event
                 </a>
                 {% endif %}
+                {% if mwguser.pk == event.created_by.pk %}
+                <br /><br />
+                <a class="btn btn-warning" href="{% url 'update-event' event.pk %}">
+                  Edit Event
+                </a>
+
+                <a class="btn btn-danger" href="{% url 'remove-event' event.pk %}">
+                  Delete Event
+                </a>
+                {% endif %}
               </p>
             </div><!--/span-->
 

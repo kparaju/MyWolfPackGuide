@@ -59,6 +59,12 @@ Contents of Requirements.pip:
 - python-openid
 - wsgiref
 
+##Screenshots
+
+![User dashboard](dashboard.png)
+
+![Event details page](event_details.png)
+
 Contributers to MyWolfpackGuide would like to <b>sincerely</b> thank all contributers to the dependent packages!
   
 
